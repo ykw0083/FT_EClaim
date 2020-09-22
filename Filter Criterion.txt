@@ -1,0 +1,37 @@
+-
+Claim
+Own Claim
+[IsCancelled] = False And [CreateUser.Oid] = [<SystemUsers>][[Oid] = CurrentUserID()].Single([Oid])
+
+
+All Claim
+Claim
+For ClaimSuperRole
+[IsCancelled] = False
+
+
+Rejected
+Claim
+Own Reject Claim
+[IsRejected] = True And [IsPassed] = False And [CreateUser.Oid] = CurrentUserID()
+
+
+Require App.
+Claim
+For ApprovalUserRole
+[IsAccepted] = True And [ApprovalStatus] = ##Enum#FT_EClaim.Module.BusinessObjects.ApprovalStatuses,Required_Approval# And [CurrentAppStage.Approval.ApprovalPosition][[Oid] = [<Employees>][[SystemUser.Oid] = CurrentUserID()].Single([Position.Oid])] And ([CurrentAppStage.Approval.Division] Is Null Or [CurrentAppStage.Approval.Division.Oid] = [<Employees>][[SystemUser.Oid] = CurrentUserID()].Single([Division.Oid]))
+
+
+To Be Close
+Claim
+For VerifyUserRole
+[IsAccepted] = True And [IsClosed] = False And [ApprovalStatus] In (##Enum#FT_EClaim.Module.BusinessObjects.ApprovalStatuses,Not_Applicable#, ##Enum#FT_EClaim.Module.BusinessObjects.ApprovalStatuses,Approved#)
+
+
+To Be Post
+Claim
+For PostUserRole
+[IsAccepted] = True And [IsClosed] = True And [IsPosted] = False
+
+
+

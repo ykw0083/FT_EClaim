@@ -1,0 +1,4 @@
+alter table claimtrxs add SAPKey int
+go
+update claimtrxs set SAPKey = 0 where SAPKey is null
+go

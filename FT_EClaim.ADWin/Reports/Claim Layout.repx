@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraReportsLayoutSerializer SerializerVersion="18.1.6.0" Ref="1" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Name="Report1" DisplayName="Claim Layout" Margins="38, 36, 23, 18" PageWidth="850" PageHeight="1100" Version="18.1" DataSource="#Ref-0">
+  <Extensions>
+    <Item1 Ref="2" Key="DataSerializationExtension" Value="XtraReport" />
+    <Item2 Ref="3" Key="DataEditorExtension" Value="XtraReport" />
+    <Item3 Ref="4" Key="ParameterEditorExtension" Value="XtraReport" />
+  </Extensions>
+  <Bands>
+    <Item1 Ref="5" ControlType="TopMarginBand" Name="TopMargin" HeightF="22.87499" />
+    <Item2 Ref="6" ControlType="DetailBand" Name="Detail" HeightF="0" />
+    <Item3 Ref="7" ControlType="BottomMarginBand" Name="BottomMargin" HeightF="17.708334" />
+    <Item4 Ref="8" ControlType="GroupHeaderBand" Name="GroupHeader1" HeightF="229.5833">
+      <GroupFields>
+        <Item1 Ref="9" FieldName="Oid" />
+      </GroupFields>
+      <Controls>
+        <Item1 Ref="10" ControlType="XRLabel" Name="label50" Multiline="true" Text="Amount" TextAlignment="TopRight" SizeF="100,23" LocationFloat="666.000061, 205.958267" Padding="2,2,0,0,100" Borders="Top, Bottom">
+          <StylePriority Ref="11" UseBorders="false" UseTextAlignment="false" />
+        </Item1>
+        <Item2 Ref="12" ControlType="XRLabel" Name="label49" Multiline="true" Text="Department" SizeF="100,23" LocationFloat="566.000061, 205.958267" Padding="2,2,0,0,100" Borders="Top, Bottom">
+          <StylePriority Ref="13" UseBorders="false" />
+        </Item2>
+        <Item3 Ref="14" ControlType="XRLabel" Name="label48" Multiline="true" Text="Project" SizeF="100,23" LocationFloat="466.000122, 205.958267" Padding="2,2,0,0,100" Borders="Top, Bottom">
+          <StylePriority Ref="15" UseBorders="false" />
+        </Item3>
+        <Item4 Ref="16" ControlType="XRLabel" Name="label47" Multiline="true" Text="Date" SizeF="100,23" LocationFloat="366.000122, 205.958267" Padding="2,2,0,0,100" Borders="Top, Bottom">
+          <StylePriority Ref="17" UseBorders="false" />
+        </Item4>
+        <Item5 Ref="18" ControlType="XRLabel" Name="label46" Multiline="true" Text="Ref No" SizeF="100,23" LocationFloat="266.000031, 205.958267" Padding="2,2,0,0,100" Borders="Top, Bottom">
+          <StylePriority Ref="19" UseBorders="false" />
+        </Item5>
+        <Item6 Ref="20" ControlType="XRLabel" Name="label45" Multiline="true" Text="Remarks" SizeF="155.999939,23" LocationFloat="110.000084, 205.958267" Padding="2,2,0,0,100" Borders="Top, Bottom">
+          <StylePriority Ref="21" UseBorders="false" />
+        </Item6>
+        <Item7 Ref="22" ControlType="XRLabel" Name="label44" Multiline="true" Text="Description" SizeF="100,23" LocationFloat="9.99999, 205.958267" Padding="2,2,0,0,100" Borders="Top, Bottom">
+          <StylePriority Ref="23" UseBorders="false" />
+        </Item7>
+        <Item8 Ref="24" ControlType="XRLabel" Name="label1" Multiline="true" Text="Claim Document" TextAlignment="TopCenter" SizeF="756,32.3749847" LocationFloat="9.99999, 0" Font="Times New Roman, 20pt, style=Bold" Padding="2,2,0,0,100">
+          <StylePriority Ref="25" UseFont="false" UseTextAlignment="false" />
+        </Item8>
+        <Item9 Ref="26" ControlType="XRLabel" Name="label21" Multiline="true" Text="Total Amount" SizeF="100,23" LocationFloat="399.5002, 117.874939" Padding="2,2,0,0,100" />
+        <Item10 Ref="27" ControlType="XRLabel" Name="label20" Multiline="true" Text="label20" TextAlignment="TopRight" SizeF="100,23" LocationFloat="499.5001, 117.874939" Padding="2,2,0,0,100">
+          <ExpressionBindings>
+            <Item1 Ref="28" Expression="[TotalAmount]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+        </Item10>
+        <Item11 Ref="29" ControlType="XRLabel" Name="label19" Multiline="true" Text="KM Amount" SizeF="100,23" LocationFloat="399.5002, 94.8749847" Padding="2,2,0,0,100" />
+        <Item12 Ref="30" ControlType="XRLabel" Name="label18" Multiline="true" Text="label18" TextAlignment="TopRight" SizeF="100,23" LocationFloat="499.500153, 94.8749847" Padding="2,2,0,0,100">
+          <ExpressionBindings>
+            <Item1 Ref="31" Expression="[KMAmount]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+        </Item12>
+        <Item13 Ref="32" ControlType="XRLabel" Name="label17" Multiline="true" Text="Claim Amount" SizeF="100,23" LocationFloat="399.5002, 71.87491" Padding="2,2,0,0,100" />
+        <Item14 Ref="33" ControlType="XRLabel" Name="label16" Multiline="true" Text="label16" TextAlignment="TopRight" SizeF="100,23" LocationFloat="499.5001, 71.87491" Padding="2,2,0,0,100">
+          <ExpressionBindings>
+            <Item1 Ref="34" Expression="[Amount]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+        </Item14>
+        <Item15 Ref="35" ControlType="XRLabel" Name="label15" Multiline="true" Text="label15" TextAlignment="TopRight" SizeF="100,23" LocationFloat="499.5001, 48.87495" Padding="2,2,0,0,100">
+          <ExpressionBindings>
+            <Item1 Ref="36" Expression="[ClaimStatus]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+          <StylePriority Ref="37" UseTextAlignment="false" />
+        </Item15>
+        <Item16 Ref="38" ControlType="XRLabel" Name="label14" Multiline="true" Text="Claim Status" SizeF="100,23" LocationFloat="399.5001, 48.87495" Padding="2,2,0,0,100" />
+        <Item17 Ref="39" ControlType="XRLabel" Name="label13" Multiline="true" Text="label13" SizeF="656,23.0000076" LocationFloat="110.000084, 163.874969" Padding="2,2,0,0,100">
+          <ExpressionBindings>
+            <Item1 Ref="40" Expression="[Remarks]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+        </Item17>
+        <Item18 Ref="41" ControlType="XRLabel" Name="label12" Multiline="true" Text="Remarks" SizeF="100,23" LocationFloat="10.0000858, 163.874969" Padding="2,2,0,0,100" />
+        <Item19 Ref="42" ControlType="XRLabel" Name="label11" Multiline="true" Text="Project" SizeF="100,23" LocationFloat="10.0000858, 140.8749" Padding="2,2,0,0,100" />
+        <Item20 Ref="43" ControlType="XRLabel" Name="label10" Multiline="true" Text="Department" SizeF="100,23" LocationFloat="10.0000858, 117.874939" Padding="2,2,0,0,100" />
+        <Item21 Ref="44" ControlType="XRLabel" Name="label9" Multiline="true" Text="label9" SizeF="264.583344,23" LocationFloat="110.000084, 140.8749" Padding="2,2,0,0,100">
+          <ExpressionBindings>
+            <Item1 Ref="45" Expression="[Project].[BoFullName]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+        </Item21>
+        <Item22 Ref="46" ControlType="XRLabel" Name="label8" Multiline="true" Text="label8" SizeF="264.583344,23" LocationFloat="110.000084, 117.874939" Padding="2,2,0,0,100">
+          <ExpressionBindings>
+            <Item1 Ref="47" Expression="[Department].[BoFullName]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+        </Item22>
+        <Item23 Ref="48" ControlType="XRLabel" Name="label7" Multiline="true" Text="Employee" SizeF="100,23" LocationFloat="10.0000858, 94.8749847" Padding="2,2,0,0,100" />
+        <Item24 Ref="49" ControlType="XRLabel" Name="label6" Multiline="true" Text="label6" SizeF="264.583344,22.9999962" LocationFloat="110.000084, 94.8749847" Padding="2,2,0,0,100">
+          <ExpressionBindings>
+            <Item1 Ref="50" Expression="[Employee].[BoFullName]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+        </Item24>
+        <Item25 Ref="51" ControlType="XRLabel" Name="label5" TextFormatString="{0:dd/MM/yyyy}" Multiline="true" Text="label5" SizeF="100,23" LocationFloat="110.000084, 71.87491" Padding="2,2,0,0,100">
+          <ExpressionBindings>
+            <Item1 Ref="52" Expression="[DocDate]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+        </Item25>
+        <Item26 Ref="53" ControlType="XRLabel" Name="label4" Multiline="true" Text="Claim Date" SizeF="100,23" LocationFloat="10.0000858, 71.87491" Padding="2,2,0,0,100" />
+        <Item27 Ref="54" ControlType="XRLabel" Name="label3" Multiline="true" Text="label3" SizeF="100,23" LocationFloat="110.000084, 48.87495" Padding="2,2,0,0,100">
+          <ExpressionBindings>
+            <Item1 Ref="55" Expression="[DocNum]" PropertyName="Text" EventName="BeforePrint" />
+          </ExpressionBindings>
+        </Item27>
+        <Item28 Ref="56" ControlType="XRLabel" Name="label2" Multiline="true" Text="Claim No" SizeF="100,23" LocationFloat="10.0000858, 48.87495" Padding="2,2,0,0,100" />
+      </Controls>
+    </Item4>
+    <Item5 Ref="57" ControlType="DetailReportBand" Name="DetailReport" Level="0" DataMember="ClaimTrxDetail" DataSource="#Ref-0">
+      <Bands>
+        <Item1 Ref="58" ControlType="DetailBand" Name="Detail1" HeightF="23.958334">
+          <Controls>
+            <Item1 Ref="59" ControlType="XRLabel" Name="label43" Multiline="true" Text="label43" SizeF="100,23" LocationFloat="10.0000858, 0" Padding="2,2,0,0,100">
+              <ExpressionBindings>
+                <Item1 Ref="60" Expression="[ClaimType].[BoName]" PropertyName="Text" EventName="BeforePrint" />
+              </ExpressionBindings>
+            </Item1>
+            <Item2 Ref="61" ControlType="XRLabel" Name="label42" Multiline="true" Text="label42" SizeF="155.999939,23" LocationFloat="110.000084, 0" Padding="2,2,0,0,100">
+              <ExpressionBindings>
+                <Item1 Ref="62" Expression="[Remarks]" PropertyName="Text" EventName="BeforePrint" />
+              </ExpressionBindings>
+            </Item2>
+            <Item3 Ref="63" ControlType="XRLabel" Name="label41" Multiline="true" Text="label41" SizeF="100,23" LocationFloat="266.000061, 0" Padding="2,2,0,0,100">
+              <ExpressionBindings>
+                <Item1 Ref="64" Expression="[RefNo]" PropertyName="Text" EventName="BeforePrint" />
+              </ExpressionBindings>
+            </Item3>
+            <Item4 Ref="65" ControlType="XRLabel" Name="label40" TextFormatString="{0:dd/MM/yyyy}" Multiline="true" Text="label40" SizeF="100,23" LocationFloat="366.000061, 0" Padding="2,2,0,0,100">
+              <ExpressionBindings>
+                <Item1 Ref="66" Expression="[DocDate]" PropertyName="Text" EventName="BeforePrint" />
+              </ExpressionBindings>
+            </Item4>
+            <Item5 Ref="67" ControlType="XRLabel" Name="label39" Multiline="true" Text="label39" SizeF="100,23" LocationFloat="466, 0" Padding="2,2,0,0,100">
+              <ExpressionBindings>
+                <Item1 Ref="68" Expression="[Project].[BoName]" PropertyName="Text" EventName="BeforePrint" />
+              </ExpressionBindings>
+            </Item5>
+            <Item6 Ref="69" ControlType="XRLabel" Name="label38" Multiline="true" Text="label38" SizeF="100,23" LocationFloat="566.000061, 0" Padding="2,2,0,0,100">
+              <ExpressionBindings>
+                <Item1 Ref="70" Expression="[Department].[BoName]" PropertyName="Text" EventName="BeforePrint" />
+              </ExpressionBindings>
+            </Item6>
+            <Item7 Ref="71" ControlType="XRLabel" Name="label37" Multiline="true" Text="label37" TextAlignment="TopRight" SizeF="100,23" LocationFloat="666.000061, 0" Padding="2,2,0,0,100">
+              <ExpressionBindings>
+                <Item1 Ref="72" Expression="[LineAmount]" PropertyName="Text" EventName="BeforePrint" />
+              </ExpressionBindings>
+            </Item7>
+          </Controls>
+        </Item1>
+        <Item2 Ref="73" ControlType="GroupHeaderBand" Name="GroupHeader2" HeightF="33.0000076">
+          <Controls>
+            <Item1 Ref="74" ControlType="XRLabel" Name="label36" Multiline="true" Text="Template" SizeF="755.999939,23" LocationFloat="10.0001335, 10.0000067" Padding="2,2,0,0,100" Borders="Top, Bottom">
+              <StylePriority Ref="75" UseBorders="false" />
+            </Item1>
+          </Controls>
+        </Item2>
+      </Bands>
+    </Item5>
+    <Item6 Ref="76" ControlType="DetailReportBand" Name="DetailReport1" Level="1" DataMember="ClaimTrxItem" DataSource="#Ref-0">
+      <Bands>
+        <Item1 Ref="77" ControlType="DetailBand" Name="Detail2" HeightF="23">
+          <Controls>
+            <Item1 Ref="78" ControlType="XRLabel" Name="label34" Multiline="true" Text="label34" SizeF="100,23" LocationFloat="9.99999, 0" Padding="2,2,0,0,100">
+              <ExpressionBindings>
+                <Item1 Ref="79" Expression="[ClaimItem].[BoName]" PropertyName="Text" EventName="BeforePrint" />
+              </ExpressionBindings>
+            </Item1>
+            <Item2 Ref="80" ControlType="XRLabel" Name="label33" Multiline="true" Text="label33" SizeF="155.999939,23" LocationFloat="110.000084, 0" Padding="2,2,0,0,100">
+              <ExpressionBindings>
+                <Item1 Ref="81" Expression="[Remarks]" PropertyName="Text" EventName="BeforePrint" />
+              </ExpressionBindings>
+            </Item2>
+            <Item3 Ref="82" ControlType="XRLabel" Name="label32" Multiline="true" Text="label32" SizeF="100,23" LocationFloat="266.000031, 0" Padding="2,2,0,0,100">
+              <ExpressionBindings>
+                <Item1 Ref="83" Expression="[RefNo]" PropertyName="Text" EventName="BeforePrint" />
+              </ExpressionBindings>
+            </Item3>
+            <Item4 Ref="84" ControlType="XRLabel" Name="label31" TextFormatString="{0:dd/MM/yyyy}" Multiline="true" Text="label31" SizeF="100,23" LocationFloat="366.000061, 0" Padding="2,2,0,0,100">
+              <ExpressionBindings>
+                <Item1 Ref="85" Expression="[DocDate]" PropertyName="Text" EventName="BeforePrint" />
+              </ExpressionBindings>
+            </Item4>
+            <Item5 Ref="86" ControlType="XRLabel" Name="label30" Multiline="true" Text="label30" SizeF="100,23" LocationFloat="466, 0" Padding="2,2,0,0,100">
+              <ExpressionBindings>
+                <Item1 Ref="87" Expression="[Project].[BoName]" PropertyName="Text" EventName="BeforePrint" />
+              </ExpressionBindings>
+            </Item5>
+            <Item6 Ref="88" ControlType="XRLabel" Name="label29" Multiline="true" Text="label29" SizeF="100,23" LocationFloat="566, 0" Padding="2,2,0,0,100">
+              <ExpressionBindings>
+                <Item1 Ref="89" Expression="[Department].[BoName]" PropertyName="Text" EventName="BeforePrint" />
+              </ExpressionBindings>
+            </Item6>
+            <Item7 Ref="90" ControlType="XRLabel" Name="label28" Multiline="true" Text="label28" TextAlignment="TopRight" SizeF="100,23" LocationFloat="666.000061, 0" Padding="2,2,0,0,100">
+              <ExpressionBindings>
+                <Item1 Ref="91" Expression="[ItemAmount]" PropertyName="Text" EventName="BeforePrint" />
+              </ExpressionBindings>
+            </Item7>
+          </Controls>
+        </Item1>
+        <Item2 Ref="92" ControlType="GroupHeaderBand" Name="GroupHeader3" HeightF="32.9999733">
+          <Controls>
+            <Item1 Ref="93" ControlType="XRLabel" Name="label35" Multiline="true" Text="Claim Item" SizeF="755.999939,23" LocationFloat="10.0001335, 9.999974" Padding="2,2,0,0,100" Borders="Top, Bottom">
+              <StylePriority Ref="94" UseBorders="false" />
+            </Item1>
+          </Controls>
+        </Item2>
+      </Bands>
+    </Item6>
+    <Item7 Ref="95" ControlType="DetailReportBand" Name="DetailReport2" Level="2" DataMember="ClaimTrxKM" DataSource="#Ref-0">
+      <Bands>
+        <Item1 Ref="96" ControlType="DetailBand" Name="Detail3" HeightF="23">
+          <Controls>
+            <Item1 Ref="97" ControlType="XRLabel" Name="label25" Multiline="true" Text="label25" TextAlignment="TopRight" SizeF="100,23" LocationFloat="566, 0" Padding="2,2,0,0,100">
+              <ExpressionBindings>
+                <Item1 Ref="98" Expression="[KM]" PropertyName="Text" EventName="BeforePrint" />
+              </ExpressionBindings>
+            </Item1>
+            <Item2 Ref="99" ControlType="XRLabel" Name="label24" Multiline="true" Text="label24" TextAlignment="TopRight" SizeF="100,23" LocationFloat="666, 0" Padding="2,2,0,0,100">
+              <ExpressionBindings>
+                <Item1 Ref="100" Expression="[Amount]" PropertyName="Text" EventName="BeforePrint" />
+              </ExpressionBindings>
+            </Item2>
+            <Item3 Ref="101" ControlType="XRLabel" Name="label23" Multiline="true" Text="label23" SizeF="555.999939,23" LocationFloat="10.0000858, 0" Padding="2,2,0,0,100">
+              <ExpressionBindings>
+                <Item1 Ref="102" Expression="[Mileage].[BoFullName]" PropertyName="Text" EventName="BeforePrint" />
+              </ExpressionBindings>
+            </Item3>
+          </Controls>
+        </Item1>
+        <Item2 Ref="103" ControlType="GroupHeaderBand" Name="GroupHeader4" HeightF="23">
+          <Controls>
+            <Item1 Ref="104" ControlType="XRLabel" Name="label27" Multiline="true" Text="Amount" TextAlignment="TopRight" SizeF="100,23" LocationFloat="666.000061, 0" Padding="2,2,0,0,100" Borders="Top, Bottom">
+              <StylePriority Ref="105" UseBorders="false" UseTextAlignment="false" />
+            </Item1>
+            <Item2 Ref="106" ControlType="XRLabel" Name="label26" Multiline="true" Text="KM" TextAlignment="TopRight" SizeF="100,23" LocationFloat="566.000061, 0" Padding="2,2,0,0,100" Borders="Top, Bottom">
+              <StylePriority Ref="107" UseBorders="false" UseTextAlignment="false" />
+            </Item2>
+            <Item3 Ref="108" ControlType="XRLabel" Name="label22" Multiline="true" Text="Mileage Summary" SizeF="556,23" LocationFloat="9.99999, 0" Padding="2,2,0,0,100" Borders="Top, Bottom">
+              <StylePriority Ref="109" UseBorders="false" />
+            </Item3>
+          </Controls>
+        </Item2>
+      </Bands>
+    </Item7>
+    <Item8 Ref="110" ControlType="PageFooterBand" Name="PageFooter" HeightF="23">
+      <Controls>
+        <Item1 Ref="111" ControlType="XRPageInfo" Name="pageInfo1" TextAlignment="TopRight" SizeF="100,23" LocationFloat="666.000061, 0" Padding="2,2,0,0,100">
+          <StylePriority Ref="112" UseTextAlignment="false" />
+        </Item1>
+      </Controls>
+    </Item8>
+    <Item9 Ref="113" ControlType="GroupFooterBand" Name="GroupFooter1" PageBreak="AfterBandExceptLastEntry" HeightF="0" />
+  </Bands>
+  <ComponentStorage>
+    <Item1 Ref="0" Name="collectionDataSource1" ObjectTypeName="FT_EClaim.Module.BusinessObjects.ClaimTrxs" ObjectType="DevExpress.Persistent.Base.ReportsV2.CollectionDataSource,DevExpress.Persistent.Base.v18.1" TopReturnedRecords="0">
+      <Sorting Ref="114" />
+    </Item1>
+  </ComponentStorage>
+</XtraReportsLayoutSerializer>

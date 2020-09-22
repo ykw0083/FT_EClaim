@@ -1,0 +1,166 @@
+
+/****** Object:  StoredProcedure [dbo].[sp_Approval]    Script Date: 10/14/2019 8:04:30 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure
+[dbo].[sp_Approval] 
+@usercode nvarchar(50),
+@docid int,
+@objtype nvarchar(50),
+@appstatus int,
+@curappstage int
+
+AS
+begin
+	DECLARE @newtable TABLE
+	(
+		UserID uniqueidentifier,
+		Email nvarchar(max),
+		Url nvarchar(max),
+		EmailBody nvarchar(max)
+	)
+ --@appstatus
+ --       Not_Applicable = 0,
+ --       Approved = 1,
+ --       Required_Approval = 2,
+ --       Rejected = 3
+ 	declare @approval int
+ 	declare @approvalcnt int
+ 	declare @appstagecnt int
+ 	declare @appdonecnt int
+ 	declare @temp int
+ 	declare @url nvarchar(max)
+	declare @body nvarchar(max)
+	declare @approvalby int
+
+	declare @userid uniqueidentifier
+
+	select @userid = Oid from PermissionPolicyUser where UserName = @usercode
+
+	if @objtype = 'ClaimTrxs'
+	begin
+		select @url = '#ViewID=ClaimTrxs_DetailView&ObjectKey=' + CONVERT(nvarchar, @docid) + '&ObjectClassName=FT_EClaim.Module.BusinessObjects.ClaimTrxs&mode=View'
+
+		if @appstatus = 0
+		begin
+			delete from @newtable
+		end
+
+		if @appstatus = 1 or @appstatus = 2
+		begin
+			select @appdonecnt = 0
+
+			select @appstagecnt = count(*)
+			from ClaimTrxs T0 inner join ClaimTrxAppStages T1 on T0.OID = T1.ClaimTrx
+				inner join Approvals T9 on T1.Approval = T9.OID and T9.IsActive = 1
+			where T0.OID = @docid
+
+			DECLARE db_cursor CURSOR FOR 
+			select T9.OID, T9.ApprovalCnt, T9.ApprovalBy
+			from ClaimTrxs T0 inner join ClaimTrxAppStages T1 on T0.OID = T1.ClaimTrx
+				inner join Approvals T9 on T1.Approval = T9.OID and T9.IsActive = 1
+			where T0.OID = @docid
+			order by T1.OID
+
+			OPEN db_cursor  
+			FETCH NEXT FROM db_cursor INTO @approval, @approvalcnt, @approvalby
+
+			WHILE @@FETCH_STATUS = 0  
+			BEGIN
+				select @temp = 0
+
+				if @approvalby = 0 -- 0 = SystemUser
+				begin
+					select @temp = count(*) from Approvals T1 
+					inner join SystemUsersApprovalUser_ApprovalsUserApproval T2 on T1.OID = T2.UserApproval
+					inner join (
+					select CreateUser, max(OID) as OID from ClaimTrxAppStatuses 
+					where ClaimTrx = @docid 
+					group by CreateUser
+					) T5 on T5.CreateUser = T2.ApprovalUser
+					inner join ClaimTrxAppStatuses T9 on T9.ClaimTrx = @docid and T9.OID = T5.OID
+					where T1.OID = @approval and
+						T9.AppStatus = 1 -- approved
+				end
+				if @approvalby = 1 -- 1 = Position
+				begin
+					select @temp = count(*) from Approvals T1 
+					inner join PositionsApprovalPosition_ApprovalsUserApprovalPosition T2 on T1.OID = T2.UserApprovalPosition
+					inner join (
+					select T1.OID, T2.Position from ClaimTrxAppStatuses T1
+					inner join ClaimTrxs T0 on T1.ClaimTrx = T0.OID
+					inner join Employees T2 on T2.SystemUser = T1.CreateUser
+					where T1.ClaimTrx = @docid 
+					) T5 on T5.Position = T2.ApprovalPosition
+					inner join ClaimTrxAppStatuses T9 on T9.ClaimTrx = @docid and T9.OID = T5.OID
+					where T1.OID = @approval and
+						T9.AppStatus = 1 -- approved
+				end
+
+
+				if @temp >= @approvalcnt
+				begin
+					select @appdonecnt = @appdonecnt + 1
+				end
+
+				FETCH NEXT FROM db_cursor INTO @approval, @approvalcnt, @approvalby
+			END
+			CLOSE db_cursor  
+			DEALLOCATE db_cursor 
+
+
+			if @appdonecnt >= @appstagecnt
+			begin
+				update ClaimTrxs set ApprovalStatus = 1 where OID = @docid
+				if @appstatus = 1
+				begin
+					select @body = 'Dear Sir,' + CHAR(13)+CHAR(10) + CHAR(13)+CHAR(10) + 'Please click following link to close the Claim Document.'
+
+					insert into @newtable
+					( UserID, Email, Url, EmailBody )
+					select T10.Oid, T10.UserEmail, @url, @body
+					from ClaimTrxs T0 inner join ClaimTrxAppStages T1 on T0.OID = T1.ClaimTrx
+					inner join Approvals T9 on T1.Approval = T9.OID and T9.IsActive = 1
+					inner join SystemUsersTriggerUser_ApprovalsTriggerApproval T5 on T5.TriggerApproval = T9.OID
+					inner join SystemUsers T10 on T5.TriggerUser = T10.Oid
+					where T0.OID = @docid
+					group by T10.Oid, T10.UserEmail
+				end
+
+			end
+			else
+			begin
+				update ClaimTrxs set ApprovalStatus = 2 where OID = @docid
+				delete from @newtable
+			end
+		end
+
+		if @appstatus = 3 -- rejected
+		begin
+			update ClaimTrxs
+			set ApprovalStatus = @appstatus
+			where OID = @docid
+
+			select @body = 'Dear Sir,' + CHAR(13)+CHAR(10) + CHAR(13)+CHAR(10) + 'Please click following link to reject the Claim Document.'
+
+			insert into @newtable
+			( UserID, Email, Url, EmailBody )
+			select T10.Oid, T10.UserEmail, @url, @body
+			from ClaimTrxs T0 inner join ClaimTrxAppStages T1 on T0.OID = T1.ClaimTrx
+			inner join Approvals T9 on T1.Approval = T9.OID and T9.IsActive = 1
+			inner join SystemUsersTriggerUser_ApprovalsTriggerApproval T5 on T5.TriggerApproval = T9.OID
+			inner join SystemUsers T10 on T5.TriggerUser = T10.Oid
+			where isnull(T10.UserEmail,'') <> '' and
+			T0.OID = @docid
+			group by T10.Oid, T10.UserEmail
+
+		end
+
+
+	end
+
+	select UserID, Email, Url, EmailBody from @newtable
+  
+end

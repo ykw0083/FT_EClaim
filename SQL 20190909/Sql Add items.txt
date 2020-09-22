@@ -1,0 +1,35 @@
+insert into FT_EClaim..Accounts
+( BoCode, BoName, SystemCode, IsActive )
+select T0.FormatCode, T0.AcctName, T0.AcctCode, 1 
+from oact T0 left join FT_EClaim..Accounts T1 on T0.FormatCode collate database_default = T1.BoCode collate database_default
+where T1.BoCode is null and
+T0.Postable = 'Y' and T0.GroupMask = 7
+
+go
+
+insert into FT_EClaim..Departments
+( BoCode, BoName, IsActive )
+select T0.PrcCode, T0.PrcName, 1 
+from oprc T0 left join FT_EClaim..Departments T1 on T0.PrcCode collate database_default = T1.BoCode collate database_default
+where T1.BoCode is null and
+T0.dimcode = 4
+
+go
+
+insert into FT_EClaim..Projects
+( BoCode, BoName, IsActive )
+select T0.PrjCode, T0.PrjName, 1 
+from OPRJ T0 left join FT_EClaim..Projects T1 on T0.PrjCode collate database_default = T1.BoCode collate database_default
+where T1.BoCode is null
+
+go
+
+insert into FT_EClaim..Employees
+( BoCode, BoName, IsActive, UserEmail )
+select T0.CardCode, T0.CardName, 1, T0.E_Mail
+from OCRD T0 left join FT_EClaim..Employees T1 on T0.CardCode collate database_default = T1.BoCode collate database_default
+where T1.BoCode is null and
+T0.GroupCode = 105
+
+go
+

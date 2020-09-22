@@ -1,0 +1,4 @@
+alter table companies add IsSimpleApproval bit
+go
+update companies set IsSimpleApproval = 1
+go

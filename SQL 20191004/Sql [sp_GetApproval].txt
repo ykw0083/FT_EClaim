@@ -1,0 +1,313 @@
+
+/****** Object:  StoredProcedure [dbo].[sp_GetApproval]    Script Date: 10/16/2019 1:01:31 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure
+[dbo].[sp_GetApproval] 
+@usercode nvarchar(50),
+@docid int,
+@objtype nvarchar(50)
+AS
+begin
+
+	DECLARE @newtable TABLE
+	(
+		UserID uniqueidentifier,
+		Email nvarchar(max),
+		Url nvarchar(max),
+		EmailBody nvarchar(max)
+	)
+	
+	DECLARE @apptype int
+        --Budget = 0,
+        --Document = 1,
+        --SQL = 2
+
+	declare @userid uniqueidentifier
+	DECLARE @company int
+	DECLARE @project int
+	DECLARE @approvaldepartment int
+	DECLARE @employee int
+	DECLARE @doctype int
+	declare @budget numeric(20,6)
+	declare @total numeric(20,6)
+	declare @appdocamount numeric(20,6)
+	declare @isoverride bit
+	declare @isreject bit
+	declare @approval int
+	declare @budgetmasteroid int
+	declare @budgetoid int
+	declare @url nvarchar(max)
+	declare @body nvarchar(max)
+	declare @cnt int
+	declare @docdate datetime
+	declare @datefrom datetime
+	declare @dateto datetime
+	declare @approvalby int
+	declare @isconcurrentappstage int
+
+	select @userid = Oid from PermissionPolicyUser where UserName = @usercode
+
+	if @objtype = 'ClaimTrxs'
+	begin		
+		select @url = '#ViewID=ClaimTrxs_DetailView&ObjectKey=' + CONVERT(nvarchar, @docid) + '&ObjectClassName=FT_EClaim.Module.BusinessObjects.ClaimTrxs&mode=View'		
+
+		--insert into @newtable
+		--( UserID, Email, Url, EmailBody )
+		--values
+		--( @userid, 'ykw@myfastrack.net', @url, @body)
+		--select UserID, Email, Url, EmailBody from @newtable
+		--return
+		select @cnt = 0
+		select @company = Company, @employee = Employee, @doctype = DocType, @docdate = DocDate from ClaimTrxs where OID = @docid
+		select @isconcurrentappstage = IsConcurrentAppStage from Companies where OID = @company
+		
+		DECLARE db_cursor CURSOR FOR 
+		select OID, AppType, DocAmount, IsOverride, IsReject, ApprovalBy, isnull(Department,0)
+		from Approvals where IsActive = 1 and DocType = @doctype
+		order by AppType, ApprovalLevel desc
+
+		OPEN db_cursor  
+		FETCH NEXT FROM db_cursor INTO @approval, @apptype, @appdocamount, @isoverride, @isreject, @approvalby, @approvaldepartment
+
+		WHILE @@FETCH_STATUS = 0  
+		BEGIN
+
+			select @total = 0
+			select @budget = 0
+
+			if @apptype = 0 --0 = Budget
+			begin
+				-- budget by period
+				select @budgetoid = 0
+
+				select top 1 @budgetoid = T9.OID
+				from BudgetMasters T8
+				inner join BudgetMastersBudgetMaster_ApprovalsApproval T7 on T7.Approval = @approval and T7.BudgetMaster = T8.OID
+				inner join Budgets T9 on T8.OID = T9.BudgetMaster and T9.DateFrom <= @docdate and T9.DateTo >= @docdate				
+				inner join (select isnull(T1.Amount,0) + isnull(T1.TaxAmount,0) as Amt, T0.Employee, T1.Account, T1.Department, T1.Project, T2.Position
+				from ClaimTrxs T0 inner join ClaimTrxPostDetails T1 on T0.OID = T1.ClaimTrx and T0.IsPassed = 1
+				inner join Employees T2 on T0.Employee = T2.OID
+				where T0.OID = @docid) T5 
+				on ((T8.Employee is not null and T8.Employee = T5.Employee) or T8.Employee is null) and 
+				((T8.Account is not null and T8.Account = T5.Account) or T8.Account is null) and 
+				((T8.Department is not null and T8.Department = T5.Department) or T8.Department is null) and 
+				((T8.Project is not null and T8.Project = T5.Project) or T8.Project is null) and 
+				((T8.Position is not null and T8.Position = T5.Position) or T8.Position is null)
+				where T8.IsActive = 1
+				and T8.BudgetType = 0 -- 0 = Period
+				order by T9.DateFrom, T9.OID
+
+				if @budgetoid > 0
+				begin
+					select @budget = Amount, @datefrom = DateFrom, @dateto = DateTo, @budgetmasteroid = BudgetMaster from Budgets where OID = @budgetoid
+
+					select @total = sum(T5.Amt)
+					from BudgetMasters T8
+					inner join Budgets T9 on T8.OID = T9.BudgetMaster and T9.OID = @budgetoid and T8.OID = @budgetmasteroid
+					inner join (select isnull(T1.Amount,0) + isnull(T1.TaxAmount,0) as Amt, T0.Employee, T1.Account, T1.Department, T1.Project, T2.Position
+					from ClaimTrxs T0 inner join ClaimTrxPostDetails T1 on T0.OID = T1.ClaimTrx and T0.IsPassed = 1
+					inner join Employees T2 on T0.Employee = T2.OID
+					where T0.DocDate >= @datefrom and 
+						T0.DocDate <= @dateto) T5 
+					on ((T8.Employee is not null and T8.Employee = T5.Employee) or T8.Employee is null) and 
+					((T8.Account is not null and T8.Account = T5.Account) or T8.Account is null) and 
+					((T8.Department is not null and T8.Department = T5.Department) or T8.Department is null) and 
+					((T8.Project is not null and T8.Project = T5.Project) or T8.Project is null) and 
+					((T8.Position is not null and T8.Position = T5.Position) or T8.Position is null)
+					where T8.IsActive = 1
+				end
+				else
+				begin
+					-- budget by document
+					select @budgetoid = 0
+
+					select @total = sum(isnull(T1.Amount,0) + isnull(T1.TaxAmount,0))
+					from
+					ClaimTrxs T0 left join ClaimTrxPostDetails T1 on T0.OID = T1.ClaimTrx
+					where T0.IsAccepted = 1 and 
+					T1.SystemGen = 0 and
+					T0.OID = @docid 
+
+					select top 1 @budgetoid = T8.OID, @budget = T8.Amount
+					from BudgetMasters T8
+					inner join BudgetMastersBudgetMaster_ApprovalsApproval T7 on T7.Approval = @approval and T7.BudgetMaster = T8.OID
+					inner join (select isnull(T1.Amount,0) + isnull(T1.TaxAmount,0) as Amt, T0.Employee, T1.Account, T1.Department, T1.Project, T2.Position
+					from ClaimTrxs T0 inner join ClaimTrxPostDetails T1 on T0.OID = T1.ClaimTrx and T0.IsPassed = 1
+					inner join Employees T2 on T0.Employee = T2.OID
+					where T0.OID = @docid) T5 
+					on ((T8.Employee is not null and T8.Employee = T5.Employee) or T8.Employee is null) and 
+					((T8.Account is not null and T8.Account = T5.Account) or T8.Account is null) and 
+					((T8.Department is not null and T8.Department = T5.Department) or T8.Department is null) and 
+					((T8.Project is not null and T8.Project = T5.Project) or T8.Project is null) and 
+					((T8.Position is not null and T8.Position = T5.Position) or T8.Position is null)
+					where T8.IsActive = 1
+					and T8.BudgetType = 1 -- 0 = Document
+					and T8.Amount <= @total
+					order by T8.Amount desc, T8.OID
+
+					select @total = 0
+
+					if @budgetoid > 0
+					begin
+						select @total = sum(isnull(T1.Amount,0) + isnull(T1.TaxAmount,0))
+						from
+						ClaimTrxs T0 left join ClaimTrxPostDetails T1 on T0.OID = T1.ClaimTrx
+						where T0.IsAccepted = 1 and 
+						T1.SystemGen = 0 and
+						T0.OID = @docid 
+					end
+				end
+			end
+			else if @apptype = 1 --1 = Document
+			begin
+				select @budget = @appdocamount
+				select @total = sum(isnull(T1.Amount,0) + isnull(T1.TaxAmount,0))
+				from
+				ClaimTrxs T0 left join ClaimTrxPostDetails T1 on T0.OID = T1.ClaimTrx
+				where T0.IsAccepted = 1 and 
+				T1.SystemGen = 0 and
+				T0.OID = @docid 
+			end
+
+			if @total > @budget and @isreject = 1
+			begin
+				select @body = 'Dear Sir,' + CHAR(13)+CHAR(10) + CHAR(13)+CHAR(10) + 'Please click following link to reject the Claim Document.'
+
+				insert into @newtable
+				( UserID, Email, Url, EmailBody )
+				select T3.Oid, T3.UserEmail, @url, @body
+				from Approvals T0
+				inner join SystemUsersTriggerUser_ApprovalsTriggerApproval T2 on T0.OID = T2.TriggerApproval
+				inner join SystemUsers T3 on T2.TriggerUser = T3.Oid
+				left join @newtable T9 on T9.UserID = T3.Oid
+				where T0.OID = @approval and
+					T9.UserID is null
+
+ --       Not_Applicable = 0,
+ --       Approved = 1,
+ --       Required_Approval = 2,
+ --       Rejected = 3
+				update ClaimTrxs set ApprovalStatus = 3 where OID = @docid
+
+				break
+			end
+
+			if @total > @budget and @isreject = 0
+			begin
+				select @body = 'Dear Sir,' + CHAR(13)+CHAR(10) + CHAR(13)+CHAR(10) + 'Please click following link to approve the Claim Document.'
+
+				insert into ClaimTrxAppStages
+				( Approval, ClaimTrx, OptimisticLockField )
+				values
+				( @approval, @docid, 0 )
+
+				if @approvalby = 0 -- 0 = Approve by SystemUser
+				begin
+					if @isconcurrentappstage = 1 -- @isconcurrentappstage always 0
+					begin
+						insert into @newtable
+						( UserID, Email, Url, EmailBody )
+						select T3.Oid, T3.UserEmail, @url, @body
+						from Approvals T0
+						inner join SystemUsersApprovalUser_ApprovalsUserApproval T2 on T0.OID = T2.UserApproval
+						inner join SystemUsers T3 on T2.ApprovalUser = T3.Oid
+						left join @newtable T9 on T9.UserID = T3.Oid
+						where T0.OID = @approval and
+							T9.UserID is null
+					end
+					else
+					begin
+						select @cnt = @cnt + 1
+						if @cnt = 1
+						begin
+							insert into @newtable
+							( UserID, Email, Url, EmailBody )
+							select T3.Oid, T3.UserEmail, @url, @body
+							from Approvals T0
+							inner join SystemUsersApprovalUser_ApprovalsUserApproval T2 on T0.OID = T2.UserApproval
+							inner join SystemUsers T3 on T2.ApprovalUser = T3.Oid
+							left join @newtable T9 on T9.UserID = T3.Oid
+							where T0.OID = @approval and
+								T9.UserID is null
+						end
+					end
+				end
+				else if @approvalby = 1 -- 0 = Position
+				begin
+					if @isconcurrentappstage = 1 -- @isconcurrentappstage always 0
+					begin
+						insert into @newtable
+						( UserID, Email, Url, EmailBody )
+						select T3.Oid, case when isnull(T3.UserEmail,'') = '' then T6.UserEmail else T3.UserEmail end, @url, @body
+						from Approvals T0
+						inner join PositionsApprovalPosition_ApprovalsUserApprovalPosition T2 on T0.OID = T2.UserApprovalPosition
+						inner join Positions T5 on T5.OID = T2.ApprovalPosition
+						inner join Employees T6 on T6.Position = T5.OID
+						inner join SystemUsers T3 on T6.SystemUser = T3.Oid
+						left join @newtable T9 on T9.UserID = T3.Oid
+						where T0.OID = @approval and
+							T9.UserID is null
+					end
+					else
+					begin
+						select @cnt = @cnt + 1
+						if @cnt = 1
+						begin
+							if @approvaldepartment > 0
+							begin
+								insert into @newtable
+								( UserID, Email, Url, EmailBody )
+								select T3.Oid, case when isnull(T3.UserEmail,'') = '' then T6.UserEmail else T3.UserEmail end, @url, @body
+								from Approvals T0
+								inner join PositionsApprovalPosition_ApprovalsUserApprovalPosition T2 on T0.OID = T2.UserApprovalPosition
+								inner join Positions T5 on T5.OID = T2.ApprovalPosition
+								inner join Employees T6 on T6.Position = T5.OID
+								inner join SystemUsers T3 on T6.SystemUser = T3.Oid
+								left join @newtable T9 on T9.UserID = T3.Oid
+								where T0.OID = @approval and
+									T6.Department = @approvaldepartment and
+									T9.UserID is null
+							end
+							else
+							begin
+								insert into @newtable
+								( UserID, Email, Url, EmailBody )
+								select T3.Oid, case when isnull(T3.UserEmail,'') = '' then T6.UserEmail else T3.UserEmail end, @url, @body
+								from Approvals T0
+								inner join PositionsApprovalPosition_ApprovalsUserApprovalPosition T2 on T0.OID = T2.UserApprovalPosition
+								inner join Positions T5 on T5.OID = T2.ApprovalPosition
+								inner join Employees T6 on T6.Position = T5.OID
+								inner join SystemUsers T3 on T6.SystemUser = T3.Oid
+								left join @newtable T9 on T9.UserID = T3.Oid
+								where T0.OID = @approval and
+									T9.UserID is null
+							end
+
+						end
+					end
+				end
+ --       Not_Applicable = 0,
+ --       Approved = 1,
+ --       Required_Approval = 2,
+ --       Rejected = 3
+				update ClaimTrxs set ApprovalStatus = 2 where ApprovalStatus = 0 and OID = @docid
+
+				if @isoverride = 1
+				begin
+					break
+				end
+			end
+
+			FETCH NEXT FROM db_cursor INTO @approval, @apptype, @appdocamount, @isoverride, @isreject, @approvalby, @approvaldepartment
+
+		end
+
+		CLOSE db_cursor  
+		DEALLOCATE db_cursor 
+	end
+
+	select UserID, Email, Url, EmailBody from @newtable
+end

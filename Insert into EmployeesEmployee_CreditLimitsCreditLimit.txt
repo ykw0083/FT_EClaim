@@ -1,0 +1,5 @@
+insert into EmployeesEmployee_CreditLimitsCreditLimit
+(CreditLimit, Employee, OptimisticLockField)
+select CAST (T1.string02 as int), T2.OID, 0 from
+SystemUsers T0 inner join temp01 T1 on T0.ic = T1.string01
+inner join Employees T2 on T0.Oid = T2.SystemUser

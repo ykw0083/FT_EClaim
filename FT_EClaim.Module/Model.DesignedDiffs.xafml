@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="E-claim">
+  <BOModel>
+    <Class Name="FT_EClaim.Module.BusinessObjects.ClaimTrxDetailNotes" IsCloneable="False" />
+    <Class Name="FT_EClaim.Module.BusinessObjects.SystemUsers">
+      <OwnMembers>
+        <Member Name="TypePassword" IsPassword="True" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <NavigationItems>
+    <Items>
+      <Item Id="Default">
+        <Items>
+          <Item Id="Event_ListView" Visible="False" />
+        </Items>
+      </Item>
+      <Item Id="Task">
+        <Items>
+          <Item Id="Event_ListView" ViewId="Event_ListView" ObjectKey="" Index="" Visible="True" IsNewNode="True" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Options DataAccessMode="Server" />
+  <SchemaModules>
+    <SchemaModule Name="CloneObjectModule" Version="19.2.6.0" IsNewNode="True" />
+    <SchemaModule Name="SchedulerModuleBase" Version="19.2.6.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="19.2.6.0" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <ListView Id="ClaimTrxDetails_ClaimTrxDetailMileage_ListView" AllowEdit="True" NewItemRowPosition="Bottom" />
+    <ListView Id="ClaimTrxDetails_ClaimTrxDetailNote_ListView" AllowEdit="True" NewItemRowPosition="Bottom" />
+    <ListView Id="ClaimTrxs_ClaimTrxDetail_ListView">
+      <Filters>
+        <Filter Id="AllItems" Caption="All Items" Criteria="0 = 0" Index="0" IsNewNode="True" />
+        <Filter Id="ClaimedItems" Shortcut="" Caption="Claimed Items" Criteria="[ItemAmount] &gt; 0.0m" Index="1" IsNewNode="True" />
+      </Filters>
+    </ListView>
+    <ListView Id="ClaimTrxs_ClaimTrxMileage_ListView" AllowEdit="True" NewItemRowPosition="Bottom" />
+    <DetailView Id="PermissionPolicyRole_DetailView" AllowDelete="False" />
+    <ListView Id="PermissionPolicyRole_ListView" AllowDelete="False" />
+    <DetailView Id="SystemUsers_DetailView_Copy" ClassName="FT_EClaim.Module.BusinessObjects.SystemUsers" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="ChangePasswordOnFirstLogon" PropertyName="ChangePasswordOnFirstLogon" IsNewNode="True" />
+        <PropertyEditor Id="Company" PropertyName="Company" IsNewNode="True" />
+        <PropertyEditor Id="FullName" PropertyName="FullName" IsNewNode="True" />
+        <PropertyEditor Id="IsActive" PropertyName="IsActive" IsNewNode="True" />
+        <PropertyEditor Id="MyNotification" PropertyName="MyNotification" View="SystemUsers_MyNotification_ListView" IsNewNode="True" />
+        <PropertyEditor Id="Oid" PropertyName="Oid" IsNewNode="True" />
+        <PropertyEditor Id="Roles" PropertyName="Roles" View="PermissionPolicyUser_Roles_ListView" IsNewNode="True" />
+        <PropertyEditor Id="SAPUserID" PropertyName="SAPUserID" IsNewNode="True" />
+        <PropertyEditor Id="TypePassword" PropertyName="TypePassword" IsNewNode="True" />
+        <PropertyEditor Id="UserEmail" PropertyName="UserEmail" IsNewNode="True" />
+        <PropertyEditor Id="UserName" PropertyName="UserName" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
+          <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" RelativeSize="44.583333333333336" IsNewNode="True">
+            <LayoutGroup Id="SystemUsers" Index="0" Direction="Vertical" ShowCaption="True" Caption="System Users" RelativeSize="68.224299065420567" IsNewNode="True">
+              <LayoutGroup Id="SystemUsers_col1" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="FullName" ViewItem="FullName" ShowCaption="" Index="0" RelativeSize="28.571428571428573" IsNewNode="True" />
+                <LayoutItem Id="UserEmail" ViewItem="UserEmail" ShowCaption="" Index="1" RelativeSize="21.428571428571427" IsNewNode="True" />
+                <LayoutItem Id="SAPUserID" ViewItem="SAPUserID" ShowCaption="" Index="2" RelativeSize="21.428571428571427" IsNewNode="True" />
+                <LayoutItem Id="TypePassword" ViewItem="TypePassword" Index="3" RelativeSize="28.571428571428573" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="PermissionPolicyUser" Index="1" ShowCaption="False" RelativeSize="31.77570093457944" Caption="PermissionPolicyUser" Direction="Horizontal" IsNewNode="True" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" Index="1" RelativeSize="55.416666666666664" IsNewNode="True">
+            <LayoutGroup Id="MyNotification" Index="0" ShowCaption="True" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="MyNotification" ViewItem="MyNotification" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Roles" Index="1" ShowCaption="True" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="Roles" ViewItem="Roles" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

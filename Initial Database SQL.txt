@@ -1,0 +1,186 @@
+update Companies set ClaimControlAccount = null, AdvanceControlAccount = null
+go
+delete from ClaimTypes
+go
+DBCC CHECKIDENT ('ClaimTypes', RESEED, 0)
+go
+delete from SystemUsersApprovalUser_ApprovalsUserApproval
+go
+DBCC CHECKIDENT ('SystemUsersApprovalUser_ApprovalsUserApproval', RESEED, 0)
+go
+delete from SystemUsersTriggerUser_ApprovalsTriggerApproval
+go
+DBCC CHECKIDENT ('SystemUsersTriggerUser_ApprovalsTriggerApproval', RESEED, 0)
+go
+
+delete from PositionsApprovalPosition_ApprovalsUserApprovalPosition
+go
+DBCC CHECKIDENT ('PositionsApprovalPosition_ApprovalsUserApprovalPosition', RESEED, 0)
+go
+delete from PositionsTriggerPosition_ApprovalsTriggerApprovalPosition
+go
+DBCC CHECKIDENT ('PositionsTriggerPosition_ApprovalsTriggerApprovalPosition', RESEED, 0)
+go
+
+delete from EmailSentDetails
+go
+DBCC CHECKIDENT ('EmailSentDetails', RESEED, 0)
+go
+delete from EmailSents
+go
+DBCC CHECKIDENT ('EmailSents', RESEED, 0)
+go
+
+delete from ClaimTrxAppStatuses
+go
+DBCC CHECKIDENT ('ClaimTrxAppStatuses', RESEED, 0)
+go
+delete from ClaimTrxAppStages
+go
+DBCC CHECKIDENT ('ClaimTrxAppStages', RESEED, 0)
+go
+delete from ClaimTrxAttachments
+go
+delete from ClaimTrxDetailNotes
+go
+DBCC CHECKIDENT ('ClaimTrxDetailNotes', RESEED, 0)
+go
+delete from ClaimTrxDetails
+go
+DBCC CHECKIDENT ('ClaimTrxDetails', RESEED, 0)
+go
+delete from ClaimTrxDocStatuses
+go
+DBCC CHECKIDENT ('ClaimTrxDocStatuses', RESEED, 0)
+go
+delete from ClaimTrxItems
+go
+DBCC CHECKIDENT ('ClaimTrxItems', RESEED, 0)
+go
+delete from ClaimTrxMileages
+go
+DBCC CHECKIDENT ('ClaimTrxMileages', RESEED, 0)
+go
+delete from ClaimTrxPhotosBAK
+go
+DBCC CHECKIDENT ('ClaimTrxPhotosBAK', RESEED, 0)
+go
+delete from ClaimTrxPostDetails
+go
+DBCC CHECKIDENT ('ClaimTrxPostDetails', RESEED, 0)
+go
+delete from ClaimTrxs
+go
+DBCC CHECKIDENT ('ClaimTrxs', RESEED, 0)
+go
+
+delete from BudgetMastersBudgetMaster_ApprovalsApproval
+go
+DBCC CHECKIDENT ('BudgetMastersBudgetMaster_ApprovalsApproval', RESEED, 0)
+go
+delete from Budgets
+go
+DBCC CHECKIDENT ('Budgets', RESEED, 0)
+go
+delete from BudgetMasters
+go
+DBCC CHECKIDENT ('BudgetMasters', RESEED, 0)
+go
+delete from Approvals
+go
+DBCC CHECKIDENT ('Approvals', RESEED, 0)
+go
+
+delete from Employees
+go
+DBCC CHECKIDENT ('Employees', RESEED, 0)
+go
+delete from Positions
+go
+DBCC CHECKIDENT ('Positions', RESEED, 0)
+go
+
+delete SystemUsers from SystemUsers T0 inner join PermissionPolicyUser T1 on T0.Oid = T1.Oid where T1.UserName not in ('admin', 'user')
+go
+delete PermissionPolicyUserUsers_PermissionPolicyRoleRoles from PermissionPolicyUserUsers_PermissionPolicyRoleRoles T0 inner join PermissionPolicyUser T1 on T0.Users = T1.Oid where T1.UserName not in ('admin', 'user')
+go
+delete PermissionPolicyUser where UserName not in ('admin', 'user')
+go
+
+delete from Projects
+go
+DBCC CHECKIDENT ('Projects', RESEED, 0)
+go
+delete from MileageDetails
+go
+DBCC CHECKIDENT ('MileageDetails', RESEED, 0)
+go
+delete from Mileages
+go
+DBCC CHECKIDENT ('Mileages', RESEED, 0)
+go
+delete from ClaimItems
+go
+DBCC CHECKIDENT ('ClaimItems', RESEED, 0)
+go
+delete from Regions
+go
+DBCC CHECKIDENT ('Regions', RESEED, 0)
+go
+delete from Departments
+go
+DBCC CHECKIDENT ('Departments', RESEED, 0)
+go
+delete from Divisions
+go
+DBCC CHECKIDENT ('Divisions', RESEED, 0)
+go
+delete from Accounts
+go
+DBCC CHECKIDENT ('Accounts', RESEED, 0)
+go
+
+
+delete from AddInfoCompanyRelationship
+go
+DBCC CHECKIDENT ('AddInfoCompanyRelationship', RESEED, 0)
+go
+delete from AddInfoDestination
+go
+DBCC CHECKIDENT ('AddInfoDestination', RESEED, 0)
+go
+delete from AddInfoPersonEntertainment
+go
+DBCC CHECKIDENT ('AddInfoPersonEntertainment', RESEED, 0)
+go
+delete from AddInfoPurpose
+go
+DBCC CHECKIDENT ('AddInfoPurpose', RESEED, 0)
+go
+delete from AddInfoRecipient
+go
+DBCC CHECKIDENT ('AddInfoRecipient', RESEED, 0)
+go
+delete from AddInfoTypeofEntertainment
+go
+DBCC CHECKIDENT ('AddInfoTypeofEntertainment', RESEED, 0)
+go
+delete from AddInfoTypeofExpense
+go
+DBCC CHECKIDENT ('AddInfoTypeofExpense', RESEED, 0)
+go
+
+
+delete from ClaimAdditionalInfos
+go
+DBCC CHECKIDENT ('ClaimAdditionalInfos', RESEED, 0)
+go
+
+
+update CompanyDocs set NextDocNo = 1000001
+go
+delete from FileData
+go
+delete from MediaDataObject
+go
+

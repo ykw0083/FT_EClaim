@@ -1,0 +1,7 @@
+declare @title nvarchar(50)
+select @title = '[ALL] EXPENSES CLAIM BY EMPLOYEE'
+insert into DashboardData
+(Oid, Content, Title, SynchronizeTitle, OptimisticLockField)
+select NEWID(), T0.Content, '[' + T1.BoCode + '] ' + T0.Title, T0.SynchronizeTitle, T0.OptimisticLockField
+from DashboardData T0, Departments T1
+where Title = @title

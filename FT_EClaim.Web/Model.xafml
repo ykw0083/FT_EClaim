@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application CurrentUserDisplayMode="CaptionAndImage" Company="Fast Track SBOi SDN BHD" Copyright="Fast Track SBOi SDN BHD" Description="FT E-claim Portal">
+  <NavigationItems GenerateRelatedAnalysisGroup="False" GenerateRelatedReportsGroup="False" GenerateRelatedViewVariantsGroup="False" StartupNavigationItem="MyDetails">
+    <Items>
+      <Item Id="Default">
+        <Items>
+          <Item Id="MyDetails" ViewId="SystemUsers_DetailView_Copy" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Options>
+    <LayoutManagerOptions CaptionLocation="Left" />
+  </Options>
+  <SchemaModules>
+    <SchemaModule Name="CloneObjectModule" Version="19.2.6.0" IsNewNode="True" />
+    <SchemaModule Name="SchedulerAspNetModule" Version="19.2.6.0" IsNewNode="True" />
+    <SchemaModule Name="SchedulerModuleBase" Version="19.2.6.0" IsNewNode="True" />
+    <SchemaModule Name="SystemAspNetModule" Version="19.2.6.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="19.2.6.0" IsNewNode="True" />
+  </SchemaModules>
+</Application>

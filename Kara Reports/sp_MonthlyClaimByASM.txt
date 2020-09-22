@@ -1,0 +1,51 @@
+
+/****** Object:  StoredProcedure [dbo].[sp_MonthlyClaimByASM]    Script Date: 12/10/19 12:59:39 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+create procedure
+[dbo].[sp_MonthlyClaimByASM] 
+@year int
+
+AS
+begin
+	DECLARE @newtable TABLE
+	(
+		DocDate datetime,
+		IsClosed bit,
+		ClaimTypeOid int,
+		ClaimType nvarchar(max),
+		DivisionOid int,
+		Division nvarchar(max),
+		ASM nvarchar(max),
+		TotalAmount numeric(19,6)
+	)
+
+	insert into @newtable
+	(DocDate, IsClosed, ClaimTypeOid, DivisionOid, TotalAmount)
+	select T0.DocDate, T0.IsClosed, T1.ClaimType, isnull(T1.Division,T0.Division), T1.Amount + T1.TaxAmount as Total
+	from ClaimTrxs T0 
+	inner join ClaimTrxDetails T1 on T0.OID = T1.ClaimTrx
+	where T1.Amount <> 0
+	and T0.IsCancelled = 0 
+	and year(T0.DocDate) = @year
+
+	insert into @newtable
+	(DocDate, IsClosed, ClaimTypeOid, DivisionOid, TotalAmount)
+	select T0.DocDate, T0.IsClosed, T1.ClaimType, isnull(T2.Division,isnull(T1.Division,T0.Division)), T2.Amount + T2.TaxAmount as Total
+	from ClaimTrxs T0 inner join ClaimTrxDetails T1 on T0.OID = T1.ClaimTrx
+	inner join ClaimTrxDetailNotes T2 on T1.OID = T2.ClaimTrxDetail
+	where T2.Amount <> 0
+	and T0.IsCancelled = 0 
+	and year(T0.DocDate) = @year
+
+	update @newtable set ClaimType = T1.BoCode + '-' + T1.BoName
+	from @newtable T0 inner join ClaimTypes T1 on T0.ClaimTypeOid = T1.OID
+
+	update @newtable set Division = T1.BoCode, ASM = T1.PostCode
+	from @newtable T0 inner join Divisions T1 on T0.DivisionOid = T1.OID
+
+	select DocDate, IsClosed, ClaimTypeOid, ClaimType, DivisionOid, Division, ASM, TotalAmount from @newtable
+  
+end

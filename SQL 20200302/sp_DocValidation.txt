@@ -1,0 +1,170 @@
+USE [FT_EClaimKara]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_DocValidation]    Script Date: 4/3/2020 2:21:20 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER procedure
+[dbo].[sp_DocValidation] 
+@usercode nvarchar(50),
+@docid int,
+@objtype nvarchar(50)
+AS
+begin
+--	CreditLimitBys
+ --       Employee = 0,
+ --       Position = 1
+
+--	CreditLimitTypes
+ --       Monthly = 0,
+ --       PerDoc = 1
+
+	DECLARE @newtable TABLE
+	(
+		ErrCode int,
+		ErrText nvarchar(1024)
+	)
+
+	declare @ErrCode int
+	declare @ErrText nvarchar(1024)
+
+	select @ErrCode = 0, @ErrText = ''
+	-- @ErrCode = 0 no error found
+	-------------------------------------------
+
+	declare @userid uniqueidentifier
+	DECLARE @position int
+	DECLARE @company int
+	DECLARE @project int
+	DECLARE @employee int
+	DECLARE @doctype int
+	declare @budget numeric(20,6)
+	declare @total numeric(20,6)
+	declare @isreject bit
+	declare @docdate datetime
+	DECLARE @crbocode nvarchar(100)
+
+	select @userid = Oid from PermissionPolicyUser where UserName = @usercode
+
+	if @objtype = 'ClaimTrxs'
+	begin		
+
+		select @company = Company, @position = Position, @employee = Employee, @doctype = DocType, @docdate = DocDate from ClaimTrxs where OID = @docid
+
+		select @crbocode = ''
+	-- by employee start
+		-- per doc start
+		select top 1 @crbocode = isnull(T8.BoCode,'')
+		from 
+		(select isnull(T1.Amount,0) + isnull(T1.TaxAmount,0) as Amt, T0.Employee, T0.Department, T0.Division, T1.Account, T1.Project
+				from ClaimTrxs T0 inner join ClaimTrxPostDetails T1 on T0.OID = T1.ClaimTrx and T0.IsCancelled = 0
+				inner join Employees T2 on T0.Employee = T2.OID
+				where T0.OID = @docid
+				and T0.Employee = @employee) T5 
+		inner join EmployeesEmployee_CreditLimitsCreditLimit T1 on T5.Employee = T1.Employee
+		inner join CreditLimits T8 on T1.CreditLimit = T8.OID and T8.IsActive = 1 and T8.CreditLimitBy = 0 and T8.CreditLimitType = 1
+		where
+			((T8.Account is not null and T8.Account = T5.Account) or T8.Account is null) and 
+			((T8.Department is not null and T8.Department = T5.Department) or T8.Department is null) and 
+			((T8.Project is not null and T8.Project = T5.Project) or T8.Project is null) and 
+			((T8.Division is not null and T8.Division = T5.Division) or T8.Division is null)
+			and T5.Amt > 0 and T5.Amt > T8.DocAmount
+
+		if len(ltrim(rtrim(@crbocode))) > 0
+		begin
+			select @ErrCode = -1, @ErrText = 'Credit Limit Code [' + @crbocode + '] rejected please check.'
+			goto returnstep
+		end
+		-- per doc end
+
+		-- per montnly start
+		select top 1 @crbocode = isnull(T8.BoCode,'')
+		from 
+		(select sum(isnull(T1.Amount,0) + isnull(T1.TaxAmount,0)) as Amt, T0.Employee, T0.Department, T0.Division, T1.Account, T1.Project
+				from ClaimTrxs T0 inner join ClaimTrxPostDetails T1 on T0.OID = T1.ClaimTrx and T0.IsCancelled = 0
+				inner join Employees T2 on T0.Employee = T2.OID
+				where month(T0.DocDate) = month(@docdate)
+				and T0.Employee = @employee
+				group by T0.Department, T0.Employee, T0.Division, T1.Account, T1.Project) T5 
+		inner join EmployeesEmployee_CreditLimitsCreditLimit T1 on T5.Employee = T1.Employee
+		inner join CreditLimits T8 on T1.CreditLimit = T8.OID and T8.IsActive = 1 and T8.CreditLimitBy = 0 and T8.CreditLimitType = 0
+		where
+			((T8.Account is not null and T8.Account = T5.Account) or T8.Account is null) and 
+			((T8.Department is not null and T8.Department = T5.Department) or T8.Department is null) and 
+			((T8.Project is not null and T8.Project = T5.Project) or T8.Project is null) and 
+			((T8.Division is not null and T8.Division = T5.Division) or T8.Division is null)
+			and T5.Amt > 0 and T5.Amt > T8.DocAmount
+
+		if len(ltrim(rtrim(@crbocode))) > 0
+		begin
+			select @ErrCode = -1, @ErrText = 'Credit Limit Code [' + @crbocode + '] rejected please check.'
+			goto returnstep
+		end
+		-- per montnly end
+	-- by employee end
+
+
+	-- by position start
+		-- per doc start
+		select top 1 @crbocode = isnull(T8.BoCode,'')
+		from 
+		(select isnull(T1.Amount,0) + isnull(T1.TaxAmount,0) as Amt, T0.Department, T0.Position, T0.Division, T1.Account, T1.Project
+				from ClaimTrxs T0 inner join ClaimTrxPostDetails T1 on T0.OID = T1.ClaimTrx and T0.IsCancelled = 0
+				inner join Employees T2 on T0.Employee = T2.OID
+				where T0.OID = @docid
+				and T0.Position = @position) T5 
+		inner join PositionsPosition_CreditLimitsCreditLimit T1 on T5.Position = T1.Position
+		inner join CreditLimits T8 on T1.CreditLimit = T8.OID and T8.IsActive = 1 and T8.CreditLimitBy = 1 and T8.CreditLimitType = 1
+		where
+			((T8.Account is not null and T8.Account = T5.Account) or T8.Account is null) and 
+			((T8.Department is not null and T8.Department = T5.Department) or T8.Department is null) and 
+			((T8.Project is not null and T8.Project = T5.Project) or T8.Project is null) and 
+			((T8.Division is not null and T8.Division = T5.Division) or T8.Division is null)
+			and T5.Amt > 0 and T5.Amt > T8.DocAmount
+
+		if len(ltrim(rtrim(@crbocode))) > 0
+		begin
+			select @ErrCode = -1, @ErrText = 'Credit Limit Code [' + @crbocode + '] rejected please check.'
+			goto returnstep
+		end
+		-- per doc end
+
+		-- per montnly start
+		select top 1 @crbocode = isnull(T8.BoCode,'')
+		from 
+		(select sum(isnull(T1.Amount,0) + isnull(T1.TaxAmount,0)) as Amt, T0.Department, T0.Position, T0.Division, T1.Account, T1.Project
+				from ClaimTrxs T0 inner join ClaimTrxPostDetails T1 on T0.OID = T1.ClaimTrx and T0.IsCancelled = 0
+				inner join Employees T2 on T0.Employee = T2.OID
+				where month(T0.DocDate) = month(@docdate)
+				and T0.Position = @position
+				group by T0.Department, T0.Position, T0.Division, T1.Account, T1.Project) T5 
+		inner join PositionsPosition_CreditLimitsCreditLimit T1 on T5.Position = T1.Position
+		inner join CreditLimits T8 on T1.CreditLimit = T8.OID and T8.IsActive = 1 and T8.CreditLimitBy = 1 and T8.CreditLimitType = 0
+		where
+			((T8.Account is not null and T8.Account = T5.Account) or T8.Account is null) and 
+			((T8.Department is not null and T8.Department = T5.Department) or T8.Department is null) and 
+			((T8.Project is not null and T8.Project = T5.Project) or T8.Project is null) and 
+			((T8.Division is not null and T8.Division = T5.Division) or T8.Division is null)
+			and T5.Amt > 0 and T5.Amt > T8.DocAmount
+
+		if len(ltrim(rtrim(@crbocode))) > 0
+		begin
+			select @ErrCode = -1, @ErrText = 'Credit Limit Code [' + @crbocode + '] rejected please check.'
+			goto returnstep
+		end
+		-- per montnly end
+	-- by position end
+
+	end
+
+	-------------------------------------------
+	returnstep:
+	insert into @newtable
+	( ErrCode, ErrText )
+	values
+	( @ErrCode, @ErrText )
+
+	select ErrCode, ErrText from @newtable
+end

@@ -1,0 +1,25 @@
+select T1.BoCode as EmpID, T1.BoName as EmpName, T2.BoCode as EmpPos, T4.BoCode as EmpDiv, T3.BoCode as BudMaster, T5.BoCode as BudDiv
+from Employees T1 
+inner join Positions T2 on T1.Position = T2.OID
+left join Divisions T4 on T1.Division = T4.OID
+left join BudgetMasters T3 on T3.Position = T2.OID
+left join Divisions T5 on T3.Division = T5.OID
+where (T1.Division is null or T5.OID is null or T4.OID = T5.OID)
+order by T1.BoCode
+
+
+select T0.BoCode as Approval, T4.BoCode as AppPos, T2.BoCode as BudgetMaster, T4.BoCode as Position, T5.BoCode as Division
+from Approvals T0
+left join BudgetMastersBudgetMaster_ApprovalsApproval T1 on T0.OID = T1.BudgetMaster
+left join BudgetMasters T2 on T1.BudgetMaster = T2.OID
+left join PositionsApprovalPosition_ApprovalsUserApprovalPosition T3 on T0.OID = T3.UserApprovalPosition
+left join Positions T4 on T3.ApprovalPosition = T4.OID
+left join Divisions T5 on T2.Division = T5.OID
+where T0.IsActive = 1
+
+
+select T2.BoCode as BudgetMaster, T4.BoCode as Position, T5.BoCode as Division
+from BudgetMasters T2
+left join Positions T4 on T2.Position = T4.OID
+left join Divisions T5 on T2.Division = T5.OID
+where T2.IsActive = 1
