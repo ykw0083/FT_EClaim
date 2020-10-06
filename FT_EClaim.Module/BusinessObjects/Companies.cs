@@ -407,6 +407,19 @@ namespace FT_EClaim.Module.BusinessObjects
                 SetPropertyValue("IsHideProject", ref _IsHideProject, value);
             }
         }
+        private string _ClaimLink;
+        //[ModelDefault("EditMask", "(000)-00"), VisibleInListView(false)]
+        //[RuleRequiredField(DefaultContexts.Save)]
+        [XafDisplayName("Claim Doc Link")]
+        [Index(76)]
+        public string ClaimLink
+        {
+            get { return _ClaimLink; }
+            set
+            {
+                SetPropertyValue("ClaimLink", ref _ClaimLink, value);
+            }
+        }
 
         private bool _IsConcurrentAppStage;
         [Index(80)]

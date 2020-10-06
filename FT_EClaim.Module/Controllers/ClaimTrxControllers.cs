@@ -637,7 +637,6 @@ namespace FT_EClaim.Module.Controllers
                     return;
                 }
             }
-
             //IObjectSpace os = Application.CreateObjectSpace();
             //ClaimTrxs claimtrx = os.FindObject<ClaimTrxs>(new BinaryOperator("Oid", selectedObject.Oid));
             //int CurrentApprovalStageOid = claimtrx.GetCurrentApprovalStageOid();
@@ -652,9 +651,61 @@ namespace FT_EClaim.Module.Controllers
             RefreshController refreshcontroller = Frame.GetController<RefreshController>();
             if (refreshcontroller != null)
                 refreshcontroller.RefreshAction.DoExecute();
+
+            try
+            {
+                IObjectSpace emailos = Application.CreateObjectSpace();
+                EmailSents emailobj = null;
+                int emailcnt = 0;
+                string emailbody = "";
+                string emailsubject = "Claim Document Rejected";
+                string emailaddress = "";
+                Guid emailuser;
+
+                emailbody = selectedObject.DocNum + " is rejected, please click below link " + System.Environment.NewLine + GeneralSettings.appurl + string.Format(selectedObject.Company.ClaimLink, selectedObject.Oid.ToString());
+
+                emailaddress = selectedObject.Employee.UserEmail;
+                emailuser = (Guid)selectedObject.Employee.SystemUser.Oid;
+
+                emailobj = emailos.CreateObject<EmailSents>();
+                emailobj.CreateDate = (DateTime?)DateTime.Now;
+                //assign body will get error???
+                emailobj.EmailBody = emailbody;
+                emailobj.EmailSubject = emailsubject;
+                emailobj.ClaimTrx = emailobj.Session.GetObjectByKey<ClaimTrxs>(selectedObject.Oid);
+
+                EmailSentDetails emaildtl = emailos.CreateObject<EmailSentDetails>();
+                emaildtl.EmailUser = emaildtl.Session.GetObjectByKey<SystemUsers>(emailuser);
+                emaildtl.EmailAddress = emailaddress;
+                emailobj.EmailSentDetail.Add(emaildtl);
+                emailcnt++;
+
+                if (selectedObject.CreateUser.Oid != selectedObject.Employee.SystemUser.Oid)
+                {
+                    Employees emp = emaildtl.Session.FindObject<Employees>(CriteriaOperator.Parse("SystemUser.Oid=?", selectedObject.CreateUser.Oid));
+                    emaildtl = emailos.CreateObject<EmailSentDetails>();
+                    emaildtl.EmailUser = emaildtl.Session.GetObjectByKey<SystemUsers>(emp.SystemUser.Oid);
+                    emaildtl.EmailAddress = emp.UserEmail;
+                    emailobj.EmailSentDetail.Add(emaildtl);
+                    emailcnt++;
+                }
+                //emailobj.Save();
+                if (emailcnt > 0)
+                    emailos.CommitChanges();
+
+                if (emailobj != null)
+                {
+                    genCon.SendEmail_By_Object(emailobj);
+                }
+            }
+            catch (Exception ex)
+            {
+                genCon.showMsg("Reject doc", ex.Message, InformationType.Error);
+                return;
+            }
+
             genCon.showMsg("Successful", "Rejected Done.", InformationType.Success);
             //resetButton();
-
 
         }
         public void generatePostingDetail(ClaimTrxs selectedObject)
