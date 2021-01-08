@@ -1,0 +1,4 @@
+alter table Companies add ClaimLink nvarchar(255)
+go
+update Companies set ClaimLink = '#ViewID=ClaimTrxs_DetailView&ObjectKey={0}&ObjectClassName=FT_EClaim.Module.BusinessObjects.ClaimTrxs&mode=View'
+go

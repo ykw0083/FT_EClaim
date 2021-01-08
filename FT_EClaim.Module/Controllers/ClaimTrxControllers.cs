@@ -762,7 +762,13 @@ namespace FT_EClaim.Module.Controllers
                                 postds.Tax = ObjectSpace.FindObject<Taxes>(new BinaryOperator("BoCode", obj.Tax.BoCode));
                                 postds.TaxAmount = obj.TaxAmount;
                                 postds.RefNo = obj.RefNo;
-                                postds.Remarks = obj.Remarks;
+                                if (obj.Remarks != null)
+                                {
+                                    if (obj.Remarks.Length > 50)
+                                        postds.Remarks = obj.Remarks.Substring(0, 50);
+                                    else
+                                        postds.Remarks = obj.Remarks;
+                                }
                                 postds.Amount = combineamount;
                                 postds.IsLineJERemarks = obj.ClaimType.IsLineJERemarks;
                                 if (obj.Project != null)
@@ -806,7 +812,13 @@ namespace FT_EClaim.Module.Controllers
                                 postds.Tax = ObjectSpace.FindObject<Taxes>(new BinaryOperator("BoCode", obj.Tax.BoCode));
                                 postds.TaxAmount = obj.TaxAmount;
                                 postds.RefNo = obj.RefNo;
-                                postds.Remarks = obj.Remarks;
+                                if (obj.Remarks != null)
+                                {
+                                    if (obj.Remarks.Length > 50)
+                                        postds.Remarks = obj.Remarks.Substring(0, 50);
+                                    else
+                                        postds.Remarks = obj.Remarks;
+                                }
                                 postds.Amount = obj.Amount;
                                 postds.IsLineJERemarks = obj.ClaimType.IsLineJERemarks;
                                 if (obj.Project != null)
@@ -852,7 +864,13 @@ namespace FT_EClaim.Module.Controllers
                                     postds.Tax = ObjectSpace.FindObject<Taxes>(new BinaryOperator("BoCode", obj.Tax.BoCode));
                                     postds.TaxAmount = dtl.TaxAmount;
                                     postds.RefNo = dtl.RefNo;
-                                    postds.Remarks = dtl.Remarks;
+                                    if (dtl.Remarks != null)
+                                    {
+                                        if (dtl.Remarks.Length > 50)
+                                            postds.Remarks = dtl.Remarks.Substring(0, 50);
+                                        else
+                                            postds.Remarks = dtl.Remarks;
+                                    }
                                     postds.Amount = dtl.Amount;
                                     postds.IsLineJERemarks = obj.ClaimType.IsLineJERemarks;
                                     if (dtl.Project != null)
@@ -916,7 +934,13 @@ namespace FT_EClaim.Module.Controllers
                                 postds = ObjectSpace.CreateObject<ClaimTrxPostDetails>();
                                 postds.Tax = ObjectSpace.FindObject<Taxes>(new BinaryOperator("BoCode", obj.Tax.BoCode));
                                 postds.RefNo = obj.RefNo;
-                                postds.Remarks = obj.Remarks;
+                                if (obj.Remarks != null)
+                                {
+                                    if (obj.Remarks.Length > 50)
+                                        postds.Remarks = obj.Remarks.Substring(0, 50);
+                                    else
+                                        postds.Remarks = obj.Remarks;
+                                }
                                 postds.Amount = combineamount;
                                 postds.IsLineJERemarks = obj.ClaimType.IsLineJERemarks;
                                 if (obj.Project != null)
@@ -964,7 +988,13 @@ namespace FT_EClaim.Module.Controllers
                                         postds = ObjectSpace.CreateObject<ClaimTrxPostDetails>();
                                         postds.Tax = ObjectSpace.FindObject<Taxes>(new BinaryOperator("BoCode", obj.Tax.BoCode));
                                         postds.RefNo = mls.RefNo;
-                                        postds.Remarks = mls.Remarks;
+                                        if (mls.Remarks != null)
+                                        {
+                                            if (mls.Remarks.Length > 50)
+                                                postds.Remarks = mls.Remarks.Substring(0, 50);
+                                            else
+                                                postds.Remarks = mls.Remarks;
+                                        }
                                         postds.Amount = Math.Round((decimal)mls.KM / (decimal)dtl.KM * amount, 2);
                                         postds.IsLineJERemarks = obj.ClaimType.IsLineJERemarks;
                                         if (mls.Project != null)
@@ -1024,7 +1054,13 @@ namespace FT_EClaim.Module.Controllers
                     postds.Tax = ObjectSpace.FindObject<Taxes>(new BinaryOperator("BoCode", obj.Tax.BoCode));
                     postds.TaxAmount = obj.TaxAmount;
                     postds.RefNo = obj.RefNo;
-                    postds.Remarks = obj.Remarks;
+                    if (obj.Remarks != null)
+                    {
+                        if (obj.Remarks.Length > 50)
+                            postds.Remarks = obj.Remarks.Substring(0, 50);
+                        else
+                            postds.Remarks = obj.Remarks;
+                    }
                     postds.Amount = obj.Amount;
                     if (obj.Project != null)
                         postds.Project = ObjectSpace.GetObjectByKey<Projects>(obj.Project.Oid);
@@ -1073,7 +1109,13 @@ namespace FT_EClaim.Module.Controllers
                         postds = ObjectSpace.CreateObject<ClaimTrxPostDetails>();
                         postds.Tax = ObjectSpace.FindObject<Taxes>(new BinaryOperator("BoCode", GeneralSettings.defaultmileagetax));
                         postds.RefNo = mls.RefNo;
-                        postds.Remarks = mls.Remarks;
+                        if (mls.Remarks != null)
+                        {
+                            if (mls.Remarks.Length > 50)
+                                postds.Remarks = mls.Remarks.Substring(0, 50);
+                            else
+                                postds.Remarks = mls.Remarks;
+                        }
                         postds.Amount = Math.Round((decimal)mls.KM / (decimal)obj.KM * amount, 2);
 
                         if (mls.Project != null)

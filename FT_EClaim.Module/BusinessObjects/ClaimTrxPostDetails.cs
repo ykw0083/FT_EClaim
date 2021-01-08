@@ -245,6 +245,7 @@ namespace FT_EClaim.Module.BusinessObjects
         [Index(11), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
         //[Appearance("Remarks", Enabled = false, Criteria = "(not IsNew and not IsRequestorChecking) or DocPassed or Accepted")]
         //[RuleRequiredField(DefaultContexts.Save, TargetCriteria = "Amount > 0")]
+        [ModelDefault("Size", "50")]
         public string Remarks
         {
             get { return _Remarks; }
