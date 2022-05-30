@@ -18,6 +18,7 @@ namespace FT_EClaim.Web {
             InitializeComponent();
         }
         protected void Application_Start(Object sender, EventArgs e) {
+            DevExpress.ExpressApp.FrameworkSettings.DefaultSettingsCompatibilityMode = DevExpress.ExpressApp.FrameworkSettingsCompatibilityMode.v20_1;
             #region adjust popupwindow behaviour
             //XafPopupWindowControl.DefaultHeight = Unit.Percentage(100);
             //XafPopupWindowControl.DefaultWidth = Unit.Percentage(100);

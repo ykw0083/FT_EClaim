@@ -9,6 +9,8 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Web;
+using DevExpress.ExpressApp.Web.Controls;
+using System.Web.UI.WebControls;
 
 namespace FT_EClaim.Web {
     public class Global : System.Web.HttpApplication {
@@ -16,7 +18,6 @@ namespace FT_EClaim.Web {
             InitializeComponent();
         }
         protected void Application_Start(Object sender, EventArgs e) {
-            DevExpress.ExpressApp.FrameworkSettings.DefaultSettingsCompatibilityMode = DevExpress.ExpressApp.FrameworkSettingsCompatibilityMode.v20_1;
             #region adjust popupwindow behaviour
             //XafPopupWindowControl.DefaultHeight = Unit.Percentage(100);
             //XafPopupWindowControl.DefaultWidth = Unit.Percentage(100);
@@ -34,6 +35,7 @@ namespace FT_EClaim.Web {
             Tracing.Initialize();
             WebApplication.SetInstance(Session, new FT_EClaimAspNetApplication());
             DevExpress.ExpressApp.Web.Templates.DefaultVerticalTemplateContentNew.ClearSizeLimit();
+            //WebApplication.Instance.Settings.DefaultVerticalTemplateContentPath = "DefaultVerticalTemplateContent1.ascx";
             WebApplication.Instance.SwitchToNewStyle();
             #region listview column size adjustable
             WebApplication.OptimizationSettings.LockRecoverViewStateOnNavigationCallback = false;
@@ -100,6 +102,7 @@ namespace FT_EClaim.Web {
             FT_EClaim.Module.GeneralSettings.defaultregion = ConfigurationManager.AppSettings["DefaultRegion"].ToString();
 
             FT_EClaim.Module.GeneralSettings.appurl = System.Web.HttpContext.Current.Request.Url.AbsoluteUri; // + requestManager.GetQueryString(shortcut)
+
             #endregion
             WebApplication.Instance.CustomizeFormattingCulture += Instance_CustomizeFormattingCulture;
             WebApplication.Instance.LoggedOn += Instance_LoggedOn;
@@ -123,7 +126,7 @@ namespace FT_EClaim.Web {
         private void Instance_CustomizeFormattingCulture(object sender, CustomizeFormattingCultureEventArgs e)
         {
 
-            e.FormattingCulture.NumberFormat.CurrencySymbol = "RM";
+            e.FormattingCulture.NumberFormat.CurrencySymbol = "MYR ";
             e.FormattingCulture.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
         }
 

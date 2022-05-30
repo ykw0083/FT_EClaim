@@ -46,8 +46,8 @@
     </compilation>
     <machineKey validationKey="E043D9E98F41A25F41C59FCADE65B2690B016A346E846612F810AF038B610C05B03FE371110ABAA6C1F93AEE3C25550C9518BC06E0E951784B95B775CAB2FA3A,IsolateApps" decryptionKey="8389C7D6E0F6988C0BF902559C8D63DE18FA6FA2CCAC71DB86B08BE9287E93F1,IsolateApps" />
     <httpHandlers>
-      <add verb="*" path="Static*" type="DevExpress.ExpressApp.Mobile.StaticResourcesHttpHandler, DevExpress.ExpressApp.Mobile.v18.2, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-      <add verb="GET,POST" path="ReportsHandler*" type="DevExpress.ExpressApp.ReportsV2.Mobile.ReportsHandler, DevExpress.ExpressApp.ReportsV2.Mobile.v18.2, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+      <add verb="*" path="Static*" type="DevExpress.ExpressApp.Mobile.StaticResourcesHttpHandler, DevExpress.ExpressApp.Mobile.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+      <add verb="GET,POST" path="ReportsHandler*" type="DevExpress.ExpressApp.ReportsV2.Mobile.ReportsHandler, DevExpress.ExpressApp.ReportsV2.Mobile.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     </httpHandlers>
   </system.web>
   <system.serviceModel>
@@ -91,7 +91,7 @@
     </httpRedirect>
     <handlers>
       <add name="MobileResources" verb="GET" path="Static*" type="Mobile.Default.Mobile.ResourcesHttpHandler" />
-      <add name="Reports" verb="GET,POST" path="ReportsHandler*" type="DevExpress.ExpressApp.ReportsV2.Mobile.ReportsHandler, DevExpress.ExpressApp.ReportsV2.Mobile.v18.2, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+      <add name="Reports" verb="GET,POST" path="ReportsHandler*" type="DevExpress.ExpressApp.ReportsV2.Mobile.ReportsHandler, DevExpress.ExpressApp.ReportsV2.Mobile.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     </handlers>
   </system.webServer>
   <runtime>
