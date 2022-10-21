@@ -255,6 +255,7 @@ namespace FT_EClaim.Module.BusinessObjects
         [XafDisplayName("Approval SQL"), ToolTip("Enter Text")]
         [Appearance("ApprovalSQL", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide, Criteria = "not IsSQL")]
         [Index(40)]
+        [Size(4000)]
         public string ApprovalSQL
         {
             get { return _ApprovalSQL; }
