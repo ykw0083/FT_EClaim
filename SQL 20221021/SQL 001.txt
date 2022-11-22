@@ -1,0 +1,34 @@
+alter table Approvals drop column ApprovalSQL
+go
+alter table Approvals Add ApprovalSQL nvarchar(4000)
+go
+
+/****** Object:  Table [dbo].[PermissionPolicyActionPermissionObject]    Script Date: 21/10/2022 3:00:40 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[PermissionPolicyActionPermissionObject](
+	[Oid] [uniqueidentifier] ROWGUIDCOL  NOT NULL,
+	[ActionId] [nvarchar](100) NULL,
+	[Role] [uniqueidentifier] NULL,
+	[OptimisticLockField] [int] NULL,
+	[GCRecord] [int] NULL,
+ CONSTRAINT [PK_PermissionPolicyActionPermissionObject] PRIMARY KEY CLUSTERED 
+(
+	[Oid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[PermissionPolicyActionPermissionObject]  WITH NOCHECK ADD  CONSTRAINT [FK_PermissionPolicyActionPermissionObject_Role] FOREIGN KEY([Role])
+REFERENCES [dbo].[PermissionPolicyRole] ([Oid])
+NOT FOR REPLICATION 
+GO
+
+ALTER TABLE [dbo].[PermissionPolicyActionPermissionObject] CHECK CONSTRAINT [FK_PermissionPolicyActionPermissionObject_Role]
+GO
+
+

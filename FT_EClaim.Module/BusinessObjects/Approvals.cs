@@ -96,7 +96,7 @@ namespace FT_EClaim.Module.BusinessObjects
         {
             get { return _BoCode; }
             set
-            {                
+            {
                 SetPropertyValue("BoCode", ref _BoCode, value);
             }
         }
@@ -204,7 +204,7 @@ namespace FT_EClaim.Module.BusinessObjects
         {
             get
             {
-                if (AppType == ApprovalTypes.Document)
+                if (AppType == ApprovalTypes.Document || AppType == ApprovalTypes.SQL)
                     return true;
                 return false;
             }
@@ -255,7 +255,6 @@ namespace FT_EClaim.Module.BusinessObjects
         [XafDisplayName("Approval SQL"), ToolTip("Enter Text")]
         [Appearance("ApprovalSQL", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide, Criteria = "not IsSQL")]
         [Index(40)]
-        [Size(4000)]
         public string ApprovalSQL
         {
             get { return _ApprovalSQL; }
@@ -375,7 +374,7 @@ namespace FT_EClaim.Module.BusinessObjects
                 if (AppType == ApprovalTypes.Document && DocAmount > 0)
                     return true;
 
-                if (AppType == ApprovalTypes.SQL && DocAmount <= 0 && !string.IsNullOrEmpty(ApprovalSQL))
+                if (AppType == ApprovalTypes.SQL && DocAmount > 0 && !string.IsNullOrEmpty(ApprovalSQL))
                     return true;
 
                 return false;
