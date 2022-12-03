@@ -10,7 +10,6 @@ using System.Linq;
 
 namespace FT_EClaim.Module.BusinessObjects
 {
-    [DomainComponent]
     [NonPersistent]
     [Appearance("ClaimTrxKMs1", AppearanceItemType = "Action", TargetItems = "New", Context = "ListView", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide)]
     [Appearance("ClaimTrxKMs2", AppearanceItemType = "Action", TargetItems = "Edit", Context = "ListView", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide)]

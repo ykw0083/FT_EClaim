@@ -15,7 +15,6 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 
 namespace FT_EClaim.Module.BusinessObjects
 {
-    [DomainComponent]
     [NonPersistent]
     public class DateParameters : XPObject
     { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
@@ -45,7 +44,6 @@ namespace FT_EClaim.Module.BusinessObjects
 
     }
 
-    [DomainComponent]
     [NonPersistent]
     public class BooleanParameters : XPObject
     { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
@@ -77,7 +75,6 @@ namespace FT_EClaim.Module.BusinessObjects
     }
 
 
-    [DomainComponent]
     [NonPersistent]
     public class StringParameters : XPObject
     { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
@@ -105,7 +102,6 @@ namespace FT_EClaim.Module.BusinessObjects
 
     }
 
-    [DomainComponent]
     [NonPersistent]
     public class BudgetParameters : XPObject
     { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
@@ -192,7 +188,6 @@ namespace FT_EClaim.Module.BusinessObjects
         public bool IsErr { get; set; }
     }
 
-    [DomainComponent]
     [NonPersistent]
     public class ApprovalParameters : XPObject
     { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
@@ -234,7 +229,6 @@ namespace FT_EClaim.Module.BusinessObjects
 
     }
 
-    //[DomainComponent]
     //[NonPersistent]
     //public class ApprovalEmails : XPObject
     //{ // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
