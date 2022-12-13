@@ -63,7 +63,7 @@ namespace FT_EClaim.Module.BusinessObjects
         {
             get { return _BoCode; }
             set
-            {                
+            {
                 SetPropertyValue("BoCode", ref _BoCode, value);
             }
         }
@@ -181,6 +181,19 @@ namespace FT_EClaim.Module.BusinessObjects
             set
             {
                 SetPropertyValue("Position", ref _Position, value);
+            }
+        }
+        private string _Grade;
+        [XafDisplayName("Grade")]
+        //[ModelDefault("EditMask", "(000)-00"), VisibleInListView(false)]
+        //[RuleRequiredField(DefaultContexts.Save)]
+        [Index(31)]
+        public string Grade
+        {
+            get { return _Grade; }
+            set
+            {
+                SetPropertyValue("Grade", ref _Grade, value);
             }
         }
 

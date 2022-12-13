@@ -21,6 +21,10 @@ delete from ClaimTrxAttachments
 go
 delete from ClaimTrxDetailNotes
 go
+delete from ClaimItems
+go
+DBCC CHECKIDENT ('ClaimItems', RESEED, 0)
+go
 DBCC CHECKIDENT ('ClaimTrxDetailNotes', RESEED, 0)
 go
 delete from ClaimTrxDetails
@@ -47,14 +51,13 @@ delete from ClaimTrxPostDetails
 go
 DBCC CHECKIDENT ('ClaimTrxPostDetails', RESEED, 0)
 go
-delete from ClaimTrxs
-go
-DBCC CHECKIDENT ('ClaimTrxs', RESEED, 0)
-go
-
 delete from ClaimAdditionalInfos
 go
 DBCC CHECKIDENT ('ClaimAdditionalInfos', RESEED, 0)
+go
+delete from ClaimTrxs
+go
+DBCC CHECKIDENT ('ClaimTrxs', RESEED, 0)
 go
 
 

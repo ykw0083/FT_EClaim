@@ -1,0 +1,6 @@
+alter table Employees add Grade nvarchar(100)
+go
+alter table ClaimTrxDetailNotes add DateFrom datetime null
+go
+alter table ClaimTrxDetailNotes add DateTo datetime null
+go

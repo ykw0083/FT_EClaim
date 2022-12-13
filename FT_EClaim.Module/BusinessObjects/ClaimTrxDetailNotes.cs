@@ -369,6 +369,34 @@ namespace FT_EClaim.Module.BusinessObjects
                 }
             }
         }
+
+        private DateTime? _DateFrom;
+        [XafDisplayName("Date From")]
+        //[ModelDefault("EditMask", "(000)-00"), VisibleInListView(false)]
+        //[RuleRequiredField(DefaultContexts.Save)]
+        [Index(53)]
+        public DateTime? DateFrom
+        {
+            get { return _DateFrom; }
+            set
+            {
+                SetPropertyValue("DateFrom", ref _DateFrom, value);
+            }
+        }
+        private DateTime? _DateTo;
+        [XafDisplayName("Date To")]
+        //[ModelDefault("EditMask", "(000)-00"), VisibleInListView(false)]
+        //[RuleRequiredField(DefaultContexts.Save)]
+        [Index(53)]
+        public DateTime? DateTo
+        {
+            get { return _DateTo; }
+            set
+            {
+                SetPropertyValue("DateTo", ref _DateTo, value);
+            }
+        }
+
         private ClaimAdditionalInfos _AdditionalInfo;
         [Index(60), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(false)]
         [DevExpress.Xpo.Aggregated, ExpandObjectMembers(ExpandObjectMembers.Never)]
