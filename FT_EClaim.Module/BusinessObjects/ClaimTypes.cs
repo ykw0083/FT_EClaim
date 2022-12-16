@@ -217,5 +217,39 @@ namespace FT_EClaim.Module.BusinessObjects
             { return Session.IsNewObject(this); }
         }
 
+        [Association("ClaimType-Role"), DevExpress.Xpo.Aggregated]
+        public XPCollection<ClaimTypeRoles> Roles
+        {
+            get { return GetCollection<ClaimTypeRoles>("Roles"); }
+        }
     }
+
+    [Appearance("LinkRecord", AppearanceItemType = "Action", TargetItems = "Link", Context = "ListView", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide)]
+    [Appearance("UnlinkRecord", AppearanceItemType = "Action", TargetItems = "Unlink", Context = "ListView", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide)]
+    public class ClaimTypeRoles : XPObject
+    { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
+        public ClaimTypeRoles(Session session)
+            : base(session)
+        {
+        }
+
+        [Browsable(false)]
+        [Association("ClaimType-Role")]
+        public ClaimTypes ClaimType
+        { get; set; }
+
+        public DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyRole FilterRole
+        {
+            get { return GetPropertyValue<DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyRole>("FilterRole"); }
+            set { SetPropertyValue<DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyRole>("FilterRole", value); }
+        }
+
+        public string Description
+        {
+            get { return GetPropertyValue<string>("Description"); }
+            set { SetPropertyValue<string>("Description", value); }
+        }
+
+    }
+
 }

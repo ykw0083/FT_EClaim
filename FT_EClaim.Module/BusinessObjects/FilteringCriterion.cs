@@ -13,6 +13,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.ConditionalAppearance;
 
 namespace FT_EClaim.Module.BusinessObjects
 {
@@ -79,7 +80,7 @@ namespace FT_EClaim.Module.BusinessObjects
             set { SetPropertyValue<string>("Remarks", value); }
         }
 
-        [Association("Filter-Role")]
+        [Association("Filter-Role"), DevExpress.Xpo.Aggregated]
         public XPCollection<FilteringCriterionRole> Roles
         {
             get { return GetCollection<FilteringCriterionRole>("Roles"); }
@@ -87,6 +88,8 @@ namespace FT_EClaim.Module.BusinessObjects
     }
 
 
+    [Appearance("LinkRecord", AppearanceItemType = "Action", TargetItems = "Link", Context = "ListView", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide)]
+    [Appearance("UnlinkRecord", AppearanceItemType = "Action", TargetItems = "Unlink", Context = "ListView", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide)]
     public class FilteringCriterionRole : BaseObject
     { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
         public FilteringCriterionRole(Session session)
@@ -100,7 +103,10 @@ namespace FT_EClaim.Module.BusinessObjects
         { get; set; }
 
         public DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyRole FilterRole
-        { get; set; }
+        {
+            get { return GetPropertyValue<DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyRole>("FilterRole"); }
+            set { SetPropertyValue<DevExpress.Persistent.BaseImpl.PermissionPolicy.PermissionPolicyRole>("FilterRole", value); }
+        }
 
         public string Description
         {

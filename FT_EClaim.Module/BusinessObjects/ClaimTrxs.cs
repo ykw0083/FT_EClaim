@@ -135,6 +135,9 @@ namespace FT_EClaim.Module.BusinessObjects
             int cnt = 0;
             foreach (var dtl in LDocType)
             {
+                ClaimTypes mytype = Session.GetObjectByKey<ClaimTypes>(((ClaimTypes)dtl).Oid);
+                //var mytype = ((ClaimTypes)dtl).Roles;
+                if (mytype.Roles.Where(pp => pp.FilterRole.Users.Contains(CreateUser)).FirstOrDefault() == null) continue;
                 cnt++;
                 ClaimTrxDetails obj = new ClaimTrxDetails(Session);
                 obj.Oid = cnt * -1;

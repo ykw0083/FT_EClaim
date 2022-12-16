@@ -269,7 +269,7 @@ namespace FT_EClaim.Module.BusinessObjects
                 return BudgetType == BudgetTypes.Period? true : false;
             }
         }
-        [Association("BudgetMasters-Budgets")]
+        [Association("BudgetMasters-Budgets"), DevExpress.Xpo.Aggregated]
         [Appearance("Budget", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide, Criteria = "not IsShowBudget")]
         public XPCollection<Budgets> Budget
         {

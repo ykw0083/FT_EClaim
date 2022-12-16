@@ -432,7 +432,7 @@ namespace FT_EClaim.Module.BusinessObjects
                 SetPropertyValue("IsConcurrentAppStage", ref _IsConcurrentAppStage, value);
             }
         }
-        [Association("Companies-CompanyDocs")]
+        [Association("Companies-CompanyDocs"), DevExpress.Xpo.Aggregated]
         public XPCollection<CompanyDocs> CompanyDoc
         {
             get { return GetCollection<CompanyDocs>("CompanyDoc"); }
