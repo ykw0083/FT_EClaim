@@ -1,0 +1,39 @@
+
+/****** Object:  Table [dbo].[ClaimTypeRoles]    Script Date: 19/12/2022 5:03:00 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[ClaimTypeRoles](
+	[OID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[ClaimType] [int] NULL,
+	[FilterRole] [uniqueidentifier] NULL,
+	[Description] [nvarchar](100) NULL,
+	[OptimisticLockField] [int] NULL,
+	[GCRecord] [int] NULL,
+ CONSTRAINT [PK_ClaimTypeRoles] PRIMARY KEY CLUSTERED 
+(
+	[OID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[ClaimTypeRoles]  WITH NOCHECK ADD  CONSTRAINT [FK_ClaimTypeRoles_ClaimType] FOREIGN KEY([ClaimType])
+REFERENCES [dbo].[ClaimTypes] ([OID])
+NOT FOR REPLICATION 
+GO
+
+ALTER TABLE [dbo].[ClaimTypeRoles] CHECK CONSTRAINT [FK_ClaimTypeRoles_ClaimType]
+GO
+
+ALTER TABLE [dbo].[ClaimTypeRoles]  WITH NOCHECK ADD  CONSTRAINT [FK_ClaimTypeRoles_FilterRole] FOREIGN KEY([FilterRole])
+REFERENCES [dbo].[PermissionPolicyRole] ([Oid])
+NOT FOR REPLICATION 
+GO
+
+ALTER TABLE [dbo].[ClaimTypeRoles] CHECK CONSTRAINT [FK_ClaimTypeRoles_FilterRole]
+GO
+
+
