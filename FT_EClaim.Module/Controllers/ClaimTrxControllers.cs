@@ -1914,8 +1914,8 @@ namespace FT_EClaim.Module.Controllers
             //SystemUsers user = (SystemUsers)SecuritySystem.CurrentUser;
             ApprovalStatuses appstatus2 = ApprovalStatuses.Required_Approval;
 
-            if (selectedObject.ClaimTrxAppStatus.Where(x => x.CreateUser.Oid == user.Oid).Count() > 0)
-                appstatus2 = selectedObject.ClaimTrxAppStatus.Where(x => x.CreateUser.Oid == user.Oid).OrderBy(c => c.Oid).Last().AppStatus;
+            if (selectedObject.ClaimTrxAppStatus.Where(x => x.CreateUser.Oid == user.Oid && x.ClaimTrxAppStage.Oid == x.ClaimTrx.CurrentAppStage.Oid).Count() > 0)
+                appstatus2 = selectedObject.ClaimTrxAppStatus.Where(x => x.CreateUser.Oid == user.Oid && x.ClaimTrxAppStage.Oid == x.ClaimTrx.CurrentAppStage.Oid).OrderBy(c => c.Oid).Last().AppStatus;
 
             if (appstatus == appstatus2)
             {

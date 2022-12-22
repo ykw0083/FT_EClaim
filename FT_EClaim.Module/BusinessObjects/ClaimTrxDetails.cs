@@ -125,9 +125,14 @@ namespace FT_EClaim.Module.BusinessObjects
             }
         }
 
+        [Index(1), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
+        public Regions Region
+        {
+            get { return ClaimType == null ? null : ClaimType.Region; }
+        }
 
         private ClaimTypes _ClaimType;
-        [Index(0), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
+        [Index(1), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
         [Appearance("ClaimType", Enabled = false)]
         [RuleRequiredField(DefaultContexts.Save)]
         public ClaimTypes ClaimType
@@ -139,7 +144,7 @@ namespace FT_EClaim.Module.BusinessObjects
             }
         }
 
-        [Index(1), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
+        [Index(2), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
         //[Appearance("RefNo", Enabled = false, Criteria = "(not IsNew and not IsRequestorChecking) or DocPassed or Accepted")]
         public Accounts Account
         {
@@ -147,7 +152,7 @@ namespace FT_EClaim.Module.BusinessObjects
         }
 
         private Departments _Department;
-        [Index(2), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
+        [Index(3), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
         //[Appearance("Department", Enabled = false, Criteria = "(not IsNew and not IsRequestorChecking) or DocPassed or Accepted")]
         public Departments Department
         {
@@ -160,7 +165,7 @@ namespace FT_EClaim.Module.BusinessObjects
 
 
         private Projects _Project;
-        [Index(3), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
+        [Index(4), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
         [Appearance("HideProject", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide, Criteria = "IsHideProject")]
         //[Appearance("Project", Enabled = false, Criteria = "(not IsNew and not IsRequestorChecking) or DocPassed or Accepted")]
         public Projects Project
@@ -172,7 +177,7 @@ namespace FT_EClaim.Module.BusinessObjects
             }
         }
         private Divisions _Division;
-        [Index(4), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
+        [Index(5), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
         //[Appearance("RefNo", Enabled = false, Criteria = "(not IsNew and not IsRequestorChecking) or DocPassed or Accepted")]
         public Divisions Division
         {
@@ -183,7 +188,7 @@ namespace FT_EClaim.Module.BusinessObjects
             }
         }
         private Brands _Brand;
-        [Index(5), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
+        [Index(6), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
         [Appearance("HideBrand", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide, Criteria = "IsHideBrand")]
         //[Appearance("RefNo", Enabled = false, Criteria = "(not IsNew and not IsRequestorChecking) or DocPassed or Accepted")]
         public Brands Brand
