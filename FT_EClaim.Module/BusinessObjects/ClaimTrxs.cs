@@ -40,7 +40,7 @@ namespace FT_EClaim.Module.BusinessObjects
         }
         public string getRemarks()
         {
-
+            return "";
             DateTime claimdate = DocDate;
             claimdate = claimdate.AddMonths(-1);
             if (Employee != null)
@@ -861,7 +861,7 @@ namespace FT_EClaim.Module.BusinessObjects
         public bool IsApprovalUserCheck { get; set; }
 
         [Association("ClaimTrxs-ClaimTrxDetails"), DevExpress.Xpo.Aggregated]
-        [XafDisplayName("Template")]
+        [XafDisplayName("Claims")]
         [Appearance("ClaimTrxDetail", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide, Criteria = "not Company.IsDetail")]
         [Appearance("ClaimTrxDetail2", Enabled = false, Criteria = "IsProtectContect")]
         [Appearance("ClaimTrxDetail3", Enabled = false, Criteria = "IsNew")]

@@ -108,6 +108,7 @@ namespace FT_EClaim.Module.BusinessObjects
         private string _Remarks;
         [Index(4), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
         //[Appearance("RefNo", Enabled = false, Criteria = "(not IsNew and not IsRequestorChecking) or DocPassed or Accepted")]
+        [RuleRequiredField(DefaultContexts.Save)]
         public string Remarks
         {
             get { return _Remarks; }

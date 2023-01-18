@@ -104,7 +104,7 @@ namespace FT_EClaim.Module.BusinessObjects
         }
 
         private Regions _Region;
-        [XafDisplayName("Region")]
+        [XafDisplayName("Category")]
         //[ModelDefault("EditMask", "(000)-00"), VisibleInListView(false)]
         [RuleRequiredField(DefaultContexts.Save)]
         [Index(11)]

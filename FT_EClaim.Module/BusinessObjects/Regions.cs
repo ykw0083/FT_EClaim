@@ -16,6 +16,7 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 namespace FT_EClaim.Module.BusinessObjects
 {
     [DefaultClassOptions]
+    [XafDisplayName("Category")]
     [NavigationItem("Claim Setup")]
     //[ImageName("BO_Contact")]
     [DefaultProperty("BoFullName")]

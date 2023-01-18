@@ -126,6 +126,7 @@ namespace FT_EClaim.Module.BusinessObjects
         }
 
         [Index(1), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
+        [XafDisplayName("Category")]
         public Regions Region
         {
             get { return ClaimType == null ? null : ClaimType.Region; }
