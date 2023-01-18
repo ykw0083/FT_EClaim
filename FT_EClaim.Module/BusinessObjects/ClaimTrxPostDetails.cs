@@ -42,12 +42,19 @@ namespace FT_EClaim.Module.BusinessObjects
             Tax = Session.FindObject<Taxes>(new BinaryOperator("BoCode", GeneralSettings.defaulttax, BinaryOperatorType.Equal));
             SystemGen = false;
             IsLineJERemarks = false;
+
+            Companies company = Session.FindObject<Companies>(new BinaryOperator("Oid", CreateUser.Company.Oid, BinaryOperatorType.Equal));
+            IsHideTax = company.IsHideTax;
+            IsHideBrand = company.IsHideBrand;
+            IsHideProject = company.IsHideProject;
         }
         protected override void OnLoaded()
         {
             base.OnLoaded();
             Companies company = Session.FindObject<Companies>(new BinaryOperator("Oid", CreateUser.Company.Oid, BinaryOperatorType.Equal));
             IsHideTax = company.IsHideTax;
+            IsHideBrand = company.IsHideBrand;
+            IsHideProject = company.IsHideProject;
         }
         //private string _PersistentProperty;
         //[XafDisplayName("My display name"), ToolTip("My hint message")]
@@ -63,6 +70,12 @@ namespace FT_EClaim.Module.BusinessObjects
         //    // Trigger a custom business logic for the current record in the UI (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112619.aspx).
         //    this.PersistentProperty = "Paid";
         //}
+        [Browsable(false)]
+        [NonPersistent]
+        public bool IsHideBrand { get; set; }
+        [Browsable(false)]
+        [NonPersistent]
+        public bool IsHideProject { get; set; }
 
         private SystemUsers _CreateUser;
         [XafDisplayName("Create User")]
@@ -195,6 +208,7 @@ namespace FT_EClaim.Module.BusinessObjects
         }
         private Brands _Brand;
         [Index(5), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
+        [Appearance("HideBrand", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide, Criteria = "IsHideBrand")]
         //[Appearance("RefNo", Enabled = false, Criteria = "(not IsNew and not IsRequestorChecking) or DocPassed or Accepted")]
         public Brands Brand
         {
@@ -219,6 +233,7 @@ namespace FT_EClaim.Module.BusinessObjects
 
         private Projects _Project;
         [Index(3), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
+        [Appearance("HideProject", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide, Criteria = "IsHideProject")]
         //[Appearance("RefNo", Enabled = false, Criteria = "(not IsNew and not IsRequestorChecking) or DocPassed or Accepted")]
         public Projects Project
         {
