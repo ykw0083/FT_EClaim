@@ -72,6 +72,7 @@ namespace FT_EClaim.Module.BusinessObjects
         [XafDisplayName("Name"), ToolTip("Enter Text")]
         //[ModelDefault("EditMask", "(000)-00"), VisibleInListView(false)]
         [RuleRequiredField(DefaultContexts.Save)]
+        [Size(200)]
         [Index(1)]
         public string BoName
         {
