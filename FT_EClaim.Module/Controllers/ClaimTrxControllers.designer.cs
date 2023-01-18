@@ -47,7 +47,7 @@
             // 
             this.PassDoc.AcceptButtonCaption = null;
             this.PassDoc.CancelButtonCaption = null;
-            this.PassDoc.Caption = "Pass";
+            this.PassDoc.Caption = "Submit";
             this.PassDoc.ConfirmationMessage = null;
             this.PassDoc.Id = "PassDoc";
             this.PassDoc.ToolTip = null;
