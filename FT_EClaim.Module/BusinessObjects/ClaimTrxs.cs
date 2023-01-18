@@ -965,13 +965,13 @@ namespace FT_EClaim.Module.BusinessObjects
             get { return GetCollection<ClaimTrxDocStatuses>("ClaimTrxDocStatus"); }
         }
         [Association("ClaimTrxs-ClaimTrxAppStatuses"), DevExpress.Xpo.Aggregated]
-        [XafDisplayName("App Status")]
+        [XafDisplayName("Approval Status")]
         public XPCollection<ClaimTrxAppStatuses> ClaimTrxAppStatus
         {
             get { return GetCollection<ClaimTrxAppStatuses>("ClaimTrxAppStatus"); }
         }
         [Association("ClaimTrxs-ClaimTrxAppStages"), DevExpress.Xpo.Aggregated]
-        [XafDisplayName("App Stage")]
+        [XafDisplayName("Approval Stage")]
         public XPCollection<ClaimTrxAppStages> ClaimTrxAppStage
         {
             get { return GetCollection<ClaimTrxAppStages>("ClaimTrxAppStage"); }
