@@ -141,6 +141,7 @@ namespace FT_EClaim.Module.BusinessObjects
         }
 
         private Departments _Department;
+        [Browsable(false)]
         [Index(2), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
         //[Appearance("RefNo", Enabled = false, Criteria = "(not IsNew and not IsRequestorChecking) or DocPassed or Accepted")]
         public Departments Department
@@ -167,6 +168,7 @@ namespace FT_EClaim.Module.BusinessObjects
             }
         }
         private Divisions _Division;
+        [Browsable(false)]
         [Index(4), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
         //[Appearance("RefNo", Enabled = false, Criteria = "(not IsNew and not IsRequestorChecking) or DocPassed or Accepted")]
         public Divisions Division
@@ -326,6 +328,7 @@ namespace FT_EClaim.Module.BusinessObjects
             }
         }
         private double _FCRate;
+        [Browsable(false)]
         [ImmediatePostData]
         [Index(51), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(false)]
         [Appearance("FCRate", Enabled = false, Criteria = "not IsFC")]
@@ -348,6 +351,7 @@ namespace FT_EClaim.Module.BusinessObjects
             }
         }
         private decimal _FCAmount;
+        [Browsable(false)]
         [ImmediatePostData]
         [Index(52), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(false)]
         [Appearance("FCAmount", Enabled = false, Criteria = "not IsFC")]
@@ -399,6 +403,7 @@ namespace FT_EClaim.Module.BusinessObjects
         }
 
         private ClaimAdditionalInfos _AdditionalInfo;
+        [Browsable(false)]
         [Index(60), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(false)]
         [DevExpress.Xpo.Aggregated, ExpandObjectMembers(ExpandObjectMembers.Never)]
         [NonCloneable]

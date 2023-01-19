@@ -547,6 +547,7 @@ namespace FT_EClaim.Module.BusinessObjects
             }
         }
         private double _FCRate;
+        [Browsable(false)]
         [ImmediatePostData]
         [Index(31), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(false)]
         [Appearance("FCRate", Enabled = false, Criteria = "not IsFC")]
@@ -579,6 +580,7 @@ namespace FT_EClaim.Module.BusinessObjects
             }
         }
         private decimal _FCAmount;
+        [Browsable(false)]
         [ImmediatePostData]
         [Index(32), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(false)]
         [Appearance("FCAmount", Enabled = false, Criteria = "not IsFC")]
@@ -870,6 +872,7 @@ namespace FT_EClaim.Module.BusinessObjects
             get { return GetCollection<ClaimTrxDetails>("ClaimTrxDetail"); }
         }
 
+        [Browsable(false)]
         [Association("ClaimTrxs-ClaimTrxItems"), DevExpress.Xpo.Aggregated]
         [XafDisplayName("Detail Item")]
         [Appearance("ClaimTrxItem", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide, Criteria = "not Company.IsItem")]
@@ -880,6 +883,7 @@ namespace FT_EClaim.Module.BusinessObjects
             get { return GetCollection<ClaimTrxItems>("ClaimTrxItem"); }
         }
 
+        [Browsable(false)]
         [Association("ClaimTrxs-ClaimTrxMileages"), DevExpress.Xpo.Aggregated]
         [XafDisplayName("Mileages")]
         [Appearance("ClaimTrxMileage", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide, Criteria = "not Company.IsMileage")]
@@ -890,6 +894,7 @@ namespace FT_EClaim.Module.BusinessObjects
             get { return GetCollection<ClaimTrxMileages>("ClaimTrxMileage"); }
         }
 
+        [Browsable(false)]
         [Appearance("ClaimTrxKM", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide, Criteria = "not Company.IsMileage")]
         //[Association("ClaimTrxDetails-ClaimTrxDetailMileages", typeof(ClaimTrxDetailKMs))]
         [XafDisplayName("Mileages Summary")]

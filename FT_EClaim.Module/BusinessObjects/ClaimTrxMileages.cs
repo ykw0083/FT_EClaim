@@ -133,6 +133,7 @@ namespace FT_EClaim.Module.BusinessObjects
         }
 
         private Departments _Department;
+        [Browsable(false)]
         [Index(2), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
         //[Appearance("RefNo", Enabled = false, Criteria = "(not IsNew and not IsRequestorChecking) or DocPassed or Accepted")]
         public Departments Department
@@ -158,6 +159,7 @@ namespace FT_EClaim.Module.BusinessObjects
             }
         }
         private Divisions _Division;
+        [Browsable(false)]
         [Index(4), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
         //[Appearance("RefNo", Enabled = false, Criteria = "(not IsNew and not IsRequestorChecking) or DocPassed or Accepted")]
         public Divisions Division
@@ -182,6 +184,7 @@ namespace FT_EClaim.Module.BusinessObjects
         }
 
         private DateTime? _DocDate;
+        [Browsable(false)]
         [Index(9), VisibleInListView(false), VisibleInDetailView(true), VisibleInLookupListView(true)]
         [XafDisplayName("Date"), ToolTip("Enter Date")]
         public DateTime? DocDate
@@ -195,6 +198,7 @@ namespace FT_EClaim.Module.BusinessObjects
         }
 
         private string _RefNo;
+        [Browsable(false)]
         [Index(10), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
         //[Appearance("RefNo", Enabled = false, Criteria = "(not IsNew and not IsRequestorChecking) or DocPassed or Accepted")]
         public string RefNo
@@ -207,6 +211,7 @@ namespace FT_EClaim.Module.BusinessObjects
         }
 
         private string _Remarks;
+        [Browsable(false)]
         [Index(19), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
         //[Appearance("RefNo", Enabled = false, Criteria = "(not IsNew and not IsRequestorChecking) or DocPassed or Accepted")]
         //[RuleRequiredField(DefaultContexts.Save, TargetCriteria = "KM > 0")]
