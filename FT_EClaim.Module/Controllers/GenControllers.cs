@@ -741,7 +741,8 @@ namespace FT_EClaim.Module.Controllers
                     else
                         smtpClient.Credentials = new NetworkCredential(GeneralSettings.Email, GeneralSettings.EmailPassword, GeneralSettings.EmailHostDomain);
                 }
-
+                //if (GeneralSettings.EmailHost.ToLower() == "smtp.office365.com")
+                System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 smtpClient.Send(mailMsg);
 
                 mailMsg.Dispose();
