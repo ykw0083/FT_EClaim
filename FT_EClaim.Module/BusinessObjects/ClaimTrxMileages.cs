@@ -122,6 +122,7 @@ namespace FT_EClaim.Module.BusinessObjects
 
         private Mileages _Mileage;
         [Index(1), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
+        [DataSourceCriteria("IsActive")]
         //[Appearance("RefNo", Enabled = false, Criteria = "(not IsNew and not IsRequestorChecking) or DocPassed or Accepted")]
         public Mileages Mileage
         {
