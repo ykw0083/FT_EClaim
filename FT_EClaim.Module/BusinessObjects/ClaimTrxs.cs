@@ -419,8 +419,9 @@ namespace FT_EClaim.Module.BusinessObjects
         [XafDisplayName("Project"), ToolTip("Enter Text")]
         //[ModelDefault("EditMask", "(000)-00"), VisibleInListView(false)]
         [Index(11), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
-        [Appearance("Project", Enabled = false, Criteria = "IsProtectContect")]
-        [Appearance("HideProject", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide, Criteria = "IsHideProject")]
+        //[Appearance("Project", Enabled = false, Criteria = "IsProtectContect")]
+        //[Appearance("HideProject", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide, Criteria = "IsHideProject")]
+        [Appearance("HideProject2", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide)]
         public Projects Project
         {
             get { return _Project; }

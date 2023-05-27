@@ -156,8 +156,8 @@ namespace FT_EClaim.Module.BusinessObjects
 
         private Projects _Project;
         [Index(3), VisibleInListView(true), VisibleInDetailView(true), VisibleInLookupListView(true)]
-        //[Appearance("HideProject", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide, Criteria = "IsHideProject")]
-        [Appearance("HideProject2", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide)]
+        [Appearance("HideProject", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide, Criteria = "IsHideProject")]
+        //[Appearance("HideProject2", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide)]
         //[Appearance("RefNo", Enabled = false, Criteria = "(not IsNew and not IsRequestorChecking) or DocPassed or Accepted")]
         //[RuleRequiredField(DefaultContexts.Save)]
         public Projects Project

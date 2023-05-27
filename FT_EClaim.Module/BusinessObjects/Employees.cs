@@ -89,6 +89,19 @@ namespace FT_EClaim.Module.BusinessObjects
             get { return EvaluateAlias("BoFullName").ToString(); }
         }
 
+        private string _CompanyName;
+        [XafDisplayName("Company Name"), ToolTip("Enter Text")]
+        //[ModelDefault("EditMask", "(000)-00"), VisibleInListView(false)]
+        [Index(5)]
+        public string CompanyName
+        {
+            get { return _CompanyName; }
+            set
+            {
+                SetPropertyValue("CompanyName", ref _CompanyName, value);
+            }
+        }
+
         private bool _IsActive;
         [XafDisplayName("Active")]
         //[ModelDefault("EditMask", "(000)-00"), VisibleInListView(false)]

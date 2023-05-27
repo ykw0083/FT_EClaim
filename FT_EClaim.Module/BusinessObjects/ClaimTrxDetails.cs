@@ -261,6 +261,7 @@ namespace FT_EClaim.Module.BusinessObjects
         //[Appearance("Amount3", FontColor = "Yellow", Criteria = "(ClaimType.IsDetail or ClaimType.IsNote) and Region.BoCode='002'")]
         [Appearance("Amount", Enabled = false, Criteria = "IsMileage")]
         [Appearance("Amount2", Enabled = false, Criteria = "IsFC")]
+        [Appearance("Amount3", Visibility = DevExpress.ExpressApp.Editors.ViewItemVisibility.Hide)]
         [XafDisplayName("Before Tax Amount")]
         public decimal Amount
         {
