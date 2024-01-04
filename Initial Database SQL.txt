@@ -1,8 +1,11 @@
 update Companies set ClaimControlAccount = null, AdvanceControlAccount = null
 go
-delete from ClaimTypes
+update ClaimTypes set Account = null
 go
-DBCC CHECKIDENT ('ClaimTypes', RESEED, 0)
+
+delete from ClaimTypeRoles
+go
+DBCC CHECKIDENT ('ClaimTypeRoles', RESEED, 0)
 go
 delete from SystemUsersApprovalUser_ApprovalsUserApproval
 go
@@ -31,6 +34,10 @@ go
 DBCC CHECKIDENT ('EmailSents', RESEED, 0)
 go
 
+update ClaimTrxs set ApprovalStatus = null, CurrentAppStage = null
+go
+update ClaimTrxMileages set ClaimTrxDetail = null
+go
 delete from ClaimTrxAppStatuses
 go
 DBCC CHECKIDENT ('ClaimTrxAppStatuses', RESEED, 0)
@@ -91,10 +98,21 @@ go
 DBCC CHECKIDENT ('Approvals', RESEED, 0)
 go
 
+delete from EmployeesEmployee_CreditLimitsCreditLimit
+go
+delete from PositionsPosition_CreditLimitsCreditLimit
+go
+
+delete from CreditLimits
+go
+DBCC CHECKIDENT ('CreditLimits', RESEED, 0)
+go
+
 delete from Employees
 go
 DBCC CHECKIDENT ('Employees', RESEED, 0)
 go
+
 delete from Positions
 go
 DBCC CHECKIDENT ('Positions', RESEED, 0)
@@ -122,10 +140,6 @@ go
 delete from ClaimItems
 go
 DBCC CHECKIDENT ('ClaimItems', RESEED, 0)
-go
-delete from Regions
-go
-DBCC CHECKIDENT ('Regions', RESEED, 0)
 go
 delete from Departments
 go
@@ -174,6 +188,15 @@ go
 delete from ClaimAdditionalInfos
 go
 DBCC CHECKIDENT ('ClaimAdditionalInfos', RESEED, 0)
+go
+
+delete from ClaimTypes
+go
+DBCC CHECKIDENT ('ClaimTypes', RESEED, 0)
+go
+delete from Regions
+go
+DBCC CHECKIDENT ('Regions', RESEED, 0)
 go
 
 
