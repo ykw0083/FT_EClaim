@@ -1,4 +1,3 @@
-
 delete from EmailSentDetails
 go
 DBCC CHECKIDENT ('EmailSentDetails', RESEED, 0)
@@ -7,7 +6,10 @@ delete from EmailSents
 go
 DBCC CHECKIDENT ('EmailSents', RESEED, 0)
 go
-update ClaimTrxs set CurrentAppStage = null
+
+update ClaimTrxs set ApprovalStatus = null, CurrentAppStage = null
+go
+update ClaimTrxMileages set ClaimTrxDetail = null
 go
 delete from ClaimTrxAppStatuses
 go
@@ -20,10 +22,6 @@ go
 delete from ClaimTrxAttachments
 go
 delete from ClaimTrxDetailNotes
-go
-delete from ClaimItems
-go
-DBCC CHECKIDENT ('ClaimItems', RESEED, 0)
 go
 DBCC CHECKIDENT ('ClaimTrxDetailNotes', RESEED, 0)
 go
@@ -51,15 +49,10 @@ delete from ClaimTrxPostDetails
 go
 DBCC CHECKIDENT ('ClaimTrxPostDetails', RESEED, 0)
 go
-delete from ClaimAdditionalInfos
-go
-DBCC CHECKIDENT ('ClaimAdditionalInfos', RESEED, 0)
-go
 delete from ClaimTrxs
 go
 DBCC CHECKIDENT ('ClaimTrxs', RESEED, 0)
 go
-
 
 update CompanyDocs set NextDocNo = 1000001
 go
@@ -67,4 +60,3 @@ delete from FileData
 go
 delete from MediaDataObject
 go
-
