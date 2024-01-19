@@ -79,6 +79,7 @@ namespace FT_EClaim.Web {
             FT_EClaim.Module.GeneralSettings.B1Server = ConfigurationManager.AppSettings["B1Server"].ToString();
             FT_EClaim.Module.GeneralSettings.B1CompanyDB = ConfigurationManager.AppSettings["B1CompanyDB"].ToString();
             FT_EClaim.Module.GeneralSettings.B1License = ConfigurationManager.AppSettings["B1License"].ToString();
+            FT_EClaim.Module.GeneralSettings.SLDServer = ConfigurationManager.AppSettings["SLDServer"].ToString();
             FT_EClaim.Module.GeneralSettings.B1DbServerType = ConfigurationManager.AppSettings["B1DbServerType"].ToString();
             FT_EClaim.Module.GeneralSettings.B1Language = ConfigurationManager.AppSettings["B1Language"].ToString();
             FT_EClaim.Module.GeneralSettings.B1DbUserName = ConfigurationManager.AppSettings["B1DbUserName"].ToString();

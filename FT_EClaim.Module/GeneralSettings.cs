@@ -49,6 +49,7 @@ namespace FT_EClaim.Module
         public static string B1Server = "";
         public static string B1CompanyDB = "";
         public static string B1License = "";
+        public static string SLDServer = "";
         public static string B1Language = "";
         public static string B1DbServerType = "";
         public static string B1DbUserName = "";
