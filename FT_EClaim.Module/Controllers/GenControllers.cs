@@ -95,7 +95,10 @@ namespace FT_EClaim.Module.Controllers
 
                     GeneralSettings.oCompany.Server = GeneralSettings.B1Server;
                     GeneralSettings.oCompany.CompanyDB = GeneralSettings.B1CompanyDB;
-                    GeneralSettings.oCompany.LicenseServer = GeneralSettings.B1License;
+                    if (!string.IsNullOrEmpty(GeneralSettings.B1License))
+                        GeneralSettings.oCompany.LicenseServer = GeneralSettings.B1License;
+                    if (!string.IsNullOrEmpty(GeneralSettings.SLDServer))
+                        GeneralSettings.oCompany.SLDServer = GeneralSettings.SLDServer;
                     GeneralSettings.oCompany.DbUserName = GeneralSettings.B1DbUserName;
                     GeneralSettings.oCompany.DbPassword = GeneralSettings.B1DbPassword;
                     GeneralSettings.oCompany.UserName = user.SAPUserID;
