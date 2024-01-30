@@ -88,10 +88,14 @@ namespace FT_EClaim.Module.Controllers
                     bool exist = Enum.IsDefined(typeof(SAPbobsCOM.BoDataServerTypes), GeneralSettings.B1DbServerType);
                     if (exist)
                         GeneralSettings.oCompany.DbServerType = (SAPbobsCOM.BoDataServerTypes)Enum.Parse(typeof(SAPbobsCOM.BoDataServerTypes), GeneralSettings.B1DbServerType);
+                    else
+                        GeneralSettings.oCompany.DbServerType = BoDataServerTypes.dst_MSSQL2019;
 
                     exist = Enum.IsDefined(typeof(SAPbobsCOM.BoSuppLangs), GeneralSettings.B1Language);
                     if (exist)
                         GeneralSettings.oCompany.language = (SAPbobsCOM.BoSuppLangs)Enum.Parse(typeof(SAPbobsCOM.BoSuppLangs), GeneralSettings.B1Language);
+                    else
+                        GeneralSettings.oCompany.language = BoSuppLangs.ln_English;
 
                     GeneralSettings.oCompany.Server = GeneralSettings.B1Server;
                     GeneralSettings.oCompany.CompanyDB = GeneralSettings.B1CompanyDB;
@@ -118,10 +122,14 @@ namespace FT_EClaim.Module.Controllers
                         bool exist = Enum.IsDefined(typeof(SAPbobsCOM.BoDataServerTypes), GeneralSettings.B1DbServerType);
                         if (exist)
                             GeneralSettings.oCompany.DbServerType = (SAPbobsCOM.BoDataServerTypes)Enum.Parse(typeof(SAPbobsCOM.BoDataServerTypes), GeneralSettings.B1DbServerType);
+                        else
+                            GeneralSettings.oCompany.DbServerType = BoDataServerTypes.dst_MSSQL2019;
 
                         exist = Enum.IsDefined(typeof(SAPbobsCOM.BoSuppLangs), GeneralSettings.B1Language);
                         if (exist)
                             GeneralSettings.oCompany.language = (SAPbobsCOM.BoSuppLangs)Enum.Parse(typeof(SAPbobsCOM.BoSuppLangs), GeneralSettings.B1Language);
+                        else
+                            GeneralSettings.oCompany.language = BoSuppLangs.ln_English;
 
                         GeneralSettings.oCompany.Server = GeneralSettings.B1Server;
                         GeneralSettings.oCompany.CompanyDB = GeneralSettings.B1CompanyDB;

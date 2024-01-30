@@ -225,6 +225,12 @@
     <Compile Include="Controllers\ClaimTrxPostControllers.Designer.cs">
       <DependentUpon>ClaimTrxPostControllers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\CompaniesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\CompaniesController.Designer.cs">
+      <DependentUpon>CompaniesController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\CustomEventControllers.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -288,6 +294,9 @@
     <EmbeddedResource Include="Controllers\ClaimTrxPostControllers.resx">
       <DependentUpon>ClaimTrxPostControllers.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\CompaniesController.resx">
+      <DependentUpon>CompaniesController.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controllers\SwitchViewControllers.resx">
       <DependentUpon>SwitchViewControllers.cs</DependentUpon>
     </EmbeddedResource>
@@ -332,7 +341,7 @@
       <Lcid>0</Lcid>
       <WrapperTool>tlbimp</WrapperTool>
       <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
