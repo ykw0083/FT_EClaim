@@ -31,23 +31,34 @@ namespace FT_EClaim.Module.Controllers
         {
             this.components = new System.ComponentModel.Container();
             this.SAPConnection = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.EmailConnection = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
             // SAPConnection
             // 
-            this.SAPConnection.Caption = "SAP Connection";
+            this.SAPConnection.Caption = "Test SAP Connection";
             this.SAPConnection.ConfirmationMessage = null;
             this.SAPConnection.Id = "SAPConnection";
             this.SAPConnection.ToolTip = null;
             this.SAPConnection.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.SAPConnection_Execute);
             // 
+            // EmailConnection
+            // 
+            this.EmailConnection.Caption = "Send Test Email";
+            this.EmailConnection.ConfirmationMessage = "Test E-mail to Current Log in User\'s E-mail.";
+            this.EmailConnection.Id = "EmailConnection";
+            this.EmailConnection.ToolTip = null;
+            this.EmailConnection.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.EmailConnection_Execute);
+            // 
             // CompaniesController
             // 
             this.Actions.Add(this.SAPConnection);
+            this.Actions.Add(this.EmailConnection);
 
         }
 
         #endregion
 
         private DevExpress.ExpressApp.Actions.SimpleAction SAPConnection;
+        private DevExpress.ExpressApp.Actions.SimpleAction EmailConnection;
     }
 }

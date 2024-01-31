@@ -35,9 +35,12 @@ namespace FT_EClaim.Module.Controllers
             base.OnActivated();
             // Perform various tasks depending on the target View.
             this.SAPConnection.Active.SetItemValue("Enabled", false);
-
+            this.EmailConnection.Active.SetItemValue("Enabled", false);
+            
             if (GeneralSettings.B1Post)
                 this.SAPConnection.Active.SetItemValue("Enabled", true);
+            if (GeneralSettings.EmailSend)
+                this.EmailConnection.Active.SetItemValue("Enabled", true);
         }
         protected override void OnViewControlsCreated()
         {
@@ -56,6 +59,39 @@ namespace FT_EClaim.Module.Controllers
             if (GeneralSettings.B1Post && genCon.ConnectSAP())
             {
                 genCon.showMsg("", "Sap Connection Succssful with current user.", InformationType.Success);
+            }
+
+        }
+
+        private void EmailConnection_Execute(object sender, SimpleActionExecuteEventArgs e)
+        {
+            IObjectSpace emailos = Application.CreateObjectSpace();
+
+            EmailSents emailobj = emailos.CreateObject<EmailSents>();
+            emailobj.CreateDate = (DateTime?)DateTime.Now;
+            //assign body will get error???
+            emailobj.EmailBody = "This is a Testing E-mail";
+            emailobj.EmailSubject = "Test e-claim email";
+
+            EmailSentDetails emaildtl = emailos.CreateObject<EmailSentDetails>();
+            emaildtl.EmailUser = emaildtl.Session.GetObjectByKey<SystemUsers>((Guid)SecuritySystem.CurrentUserId);
+
+            if (string.IsNullOrEmpty(emaildtl.EmailUser.UserEmail))
+            {
+                genCon.showMsg("", "Current user has no email.", InformationType.Error);
+                return;
+            }
+            emaildtl.EmailAddress = emaildtl.EmailUser.UserEmail;
+            emailobj.EmailSentDetail.Add(emaildtl);
+            emailos.CommitChanges();
+
+            if (emailobj != null)
+            {
+                if (genCon.SendEmail_By_Object(emailobj) != 0)
+                {
+                    genCon.showMsg("", "Done", InformationType.Info);
+                }
+
             }
 
         }
