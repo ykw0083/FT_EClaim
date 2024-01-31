@@ -65,6 +65,7 @@ namespace FT_EClaim.Web {
                 FT_EClaim.Module.GeneralSettings.EmailUseDefaultCredential = true;
 
             FT_EClaim.Module.GeneralSettings.DeliveryMethod = ConfigurationManager.AppSettings["DeliveryMethod"].ToString();
+            FT_EClaim.Module.GeneralSettings.SecurityProtocol = ConfigurationManager.AppSettings["SecurityProtocol"].ToString();
 
             FT_EClaim.Module.GeneralSettings.B1Post = false; // no more real time posting due to diapi error
             temp = ConfigurationManager.AppSettings["B1Post"].ToString();

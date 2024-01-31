@@ -42,6 +42,7 @@ namespace FT_EClaim.Module
         public static bool EmailSSL;
         public static bool EmailUseDefaultCredential;
         public static string DeliveryMethod = "";
+        public static string SecurityProtocol = "";
 
         public static bool B1Post;
         public static string B1UserName = "";

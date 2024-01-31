@@ -241,6 +241,9 @@
     <Compile Include="Controllers\DeleteOnDismissControllers.Designer.cs">
       <DependentUpon>DeleteOnDismissControllers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\FeatureCenterNotificationsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\FilterListViewControllers.cs">
       <SubType>Component</SubType>
     </Compile>

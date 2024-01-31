@@ -731,7 +731,7 @@ namespace FT_EClaim.Module.Controllers
 
                 mailMsg.Subject = MailSubject;
                 //mailMsg.SubjectEncoding = System.Text.Encoding.UTF8;
-                //mailMsg.IsBodyHtml = true;
+                mailMsg.IsBodyHtml = true;
                 mailMsg.Body = MailBody;
 
                 SmtpClient smtpClient = new SmtpClient
@@ -753,7 +753,8 @@ namespace FT_EClaim.Module.Controllers
                         smtpClient.Credentials = new NetworkCredential(GeneralSettings.Email, GeneralSettings.EmailPassword, GeneralSettings.EmailHostDomain);
                 }
                 //if (GeneralSettings.EmailHost.ToLower() == "smtp.office365.com")
-                System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                if (Enum.IsDefined(typeof(SecurityProtocolType), GeneralSettings.SecurityProtocol))
+                    System.Net.ServicePointManager.SecurityProtocol = (SecurityProtocolType)Enum.Parse(typeof(SecurityProtocolType), GeneralSettings.SecurityProtocol);
                 smtpClient.Send(mailMsg);
 
                 mailMsg.Dispose();
