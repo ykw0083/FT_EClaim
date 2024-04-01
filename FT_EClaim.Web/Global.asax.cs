@@ -101,7 +101,8 @@ namespace FT_EClaim.Web {
             FT_EClaim.Module.GeneralSettings.defemptybrand = ConfigurationManager.AppSettings["DefaultEmptyBrand"].ToString();
             FT_EClaim.Module.GeneralSettings.defaultregion = ConfigurationManager.AppSettings["DefaultRegion"].ToString();
 
-            FT_EClaim.Module.GeneralSettings.appurl = System.Web.HttpContext.Current.Request.Url.AbsoluteUri; // + requestManager.GetQueryString(shortcut)
+            //FT_EClaim.Module.GeneralSettings.appurl = System.Web.HttpContext.Current.Request.Url.AbsoluteUri; // + requestManager.GetQueryString(shortcut)
+            FT_EClaim.Module.GeneralSettings.appurl = ConfigurationManager.AppSettings["URL"].ToString();
             #endregion
             WebApplication.Instance.CustomizeFormattingCulture += Instance_CustomizeFormattingCulture;
             WebApplication.Instance.LoggedOn += Instance_LoggedOn;
