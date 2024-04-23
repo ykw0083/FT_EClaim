@@ -241,6 +241,12 @@
     <Compile Include="Controllers\DeleteOnDismissControllers.Designer.cs">
       <DependentUpon>DeleteOnDismissControllers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\EmailSentsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\EmailSentsController.Designer.cs">
+      <DependentUpon>EmailSentsController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\FeatureCenterNotificationsController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -299,6 +305,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\CompaniesController.resx">
       <DependentUpon>CompaniesController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\EmailSentsController.resx">
+      <DependentUpon>EmailSentsController.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\SwitchViewControllers.resx">
       <DependentUpon>SwitchViewControllers.cs</DependentUpon>

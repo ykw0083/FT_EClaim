@@ -18,6 +18,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using FT_EClaim.Module.BusinessObjects;
+using static DevExpress.XtraPrinting.Native.ExportOptionsPropertiesNames;
 
 namespace FT_EClaim.Module.Controllers
 {
@@ -662,7 +663,7 @@ namespace FT_EClaim.Module.Controllers
                 string emailaddress = "";
                 Guid emailuser;
 
-                emailbody = selectedObject.DocNum + " is rejected, please click below link " + System.Environment.NewLine + GeneralSettings.appurl + string.Format(selectedObject.Company.ClaimLink, selectedObject.Oid.ToString());
+                emailbody = "<html><body>" + selectedObject.DocNum + " is rejected, please click below link " + "<br/><a href=\"" + GeneralSettings.appurl + string.Format(selectedObject.Company.ClaimLink, selectedObject.Oid.ToString()) + "\">Link</a></body></html>";
 
                 emailaddress = selectedObject.Employee.UserEmail;
                 emailuser = (Guid)selectedObject.Employee.SystemUser.Oid;
@@ -1298,7 +1299,7 @@ namespace FT_EClaim.Module.Controllers
                         if (row.Values[1] != null)
                         {
                             emailcnt++;
-                            emailbody = row.Values[3] + System.Environment.NewLine + GeneralSettings.appurl + row.Values[2].ToString();
+                            emailbody = "<html><body>" + row.Values[3] + "<br/><a href=\"" + GeneralSettings.appurl + row.Values[2].ToString() + "\">Link</a></body></html>";
                             emailsubject = "Claim Document Approval Required";
                             emailaddress = row.Values[1].ToString();
                             emailuser = (Guid)row.Values[0];
@@ -1830,7 +1831,7 @@ namespace FT_EClaim.Module.Controllers
                         {
                             emailcnt++;
 
-                            emailbody = row.Values[3] + System.Environment.NewLine + GeneralSettings.appurl + row.Values[2].ToString();
+                            emailbody = "<html><body>" + row.Values[3] + "<br/><a href=\"" + GeneralSettings.appurl + row.Values[2].ToString() + "\">Link</a></body></html>";
 
                             if (appstatus == ApprovalStatuses.Approved)
                                 emailsubject = "Claim Document Approval Completed";
