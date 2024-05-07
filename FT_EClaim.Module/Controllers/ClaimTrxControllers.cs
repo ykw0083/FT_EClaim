@@ -174,17 +174,17 @@ namespace FT_EClaim.Module.Controllers
                                 if (IsAcceptanceUser && !selectedObject.IsAccepted)
                                     this.AcceptDoc.Active.SetItemValue("Enabled", true);
 
-                                if (IsAcceptanceUser && selectedObject.IsAccepted)
-                                {
-                                    if (selectedObject.ApprovalStatus == ApprovalStatuses.Rejected)
-                                    {
-                                        if (user.Oid == selectedObject.CreateUser.Oid || IsClaimSuperUser)
-                                            this.RejectDoc.Active.SetItemValue("Enabled", true);
-                                    }
-                                }
+                                //if (IsAcceptanceUser && selectedObject.IsAccepted)
+                                //{
+                                //    if (selectedObject.ApprovalStatus == ApprovalStatuses.Rejected)
+                                //    {
+                                //        if (user.Oid == selectedObject.CreateUser.Oid || IsClaimSuperUser)
+                                //            this.RejectDoc.Active.SetItemValue("Enabled", true);
+                                //    }
+                                //}
                                 if (IsRejectApproveRole && selectedObject.IsAccepted)
                                 {
-                                    if (selectedObject.ApprovalStatus == ApprovalStatuses.Not_Applicable || selectedObject.ApprovalStatus == ApprovalStatuses.Approved)
+                                    if (selectedObject.ApprovalStatus == ApprovalStatuses.Required_Approval || selectedObject.ApprovalStatus == ApprovalStatuses.Not_Applicable || selectedObject.ApprovalStatus == ApprovalStatuses.Approved)
                                     {
                                         this.RejectDoc.Active.SetItemValue("Enabled", true);
                                     }
@@ -285,8 +285,11 @@ namespace FT_EClaim.Module.Controllers
                     }
                     else if (selectedObject.ApprovalStatus == ApprovalStatuses.Required_Approval)
                     {
-                        genCon.showMsg("Failed", "Approval in process.", InformationType.Error);
-                        err = true;
+                        if (e.Action.Id != this.RejectDoc.Id)
+                        {
+                            genCon.showMsg("Failed", "Approval in process.", InformationType.Error);
+                            err = true;
+                        }
                     }
                     else
                     {

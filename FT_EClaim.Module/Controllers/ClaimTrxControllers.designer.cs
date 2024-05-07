@@ -70,7 +70,8 @@
             this.RejectDoc.AcceptButtonCaption = null;
             this.RejectDoc.CancelButtonCaption = null;
             this.RejectDoc.Caption = "Reject Doc";
-            this.RejectDoc.ConfirmationMessage = null;
+            this.RejectDoc.ConfirmationMessage = "This action will reject this claim regardless any status before closed. Are you s" +
+    "ure you want to continue?";
             this.RejectDoc.Id = "RejectDoc";
             this.RejectDoc.ToolTip = "Return to User";
             this.RejectDoc.CustomizePopupWindowParams += new DevExpress.ExpressApp.Actions.CustomizePopupWindowParamsEventHandler(this.StringParametersCustomizePopupWindowParams);

@@ -121,16 +121,16 @@
     <value>17, 189</value>
   </metadata>
   <metadata name="CancelDoc.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 275</value>
+    <value>17, 232</value>
   </metadata>
   <metadata name="RejectDoc.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 318</value>
+    <value>17, 275</value>
   </metadata>
   <metadata name="AcceptDoc.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 490</value>
+    <value>17, 361</value>
   </metadata>
   <metadata name="CloseDoc.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 533</value>
+    <value>17, 404</value>
   </metadata>
   <metadata name="ReopenDoc.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 60</value>
@@ -139,13 +139,13 @@
     <value>17, 447</value>
   </metadata>
   <metadata name="DuplicateDoc.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 404</value>
+    <value>17, 533</value>
   </metadata>
   <metadata name="SetPaidDate.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 361</value>
+    <value>17, 490</value>
   </metadata>
   <metadata name="ApprovalApprove.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 232</value>
+    <value>17, 318</value>
   </metadata>
   <metadata name="ApprovalReject.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 103</value>
