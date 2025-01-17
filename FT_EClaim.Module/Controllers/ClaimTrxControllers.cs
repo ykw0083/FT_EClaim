@@ -61,6 +61,16 @@ namespace FT_EClaim.Module.Controllers
             resetButton();
             if (View is DetailView)
             {
+                #region check companydoc exists before assignDocNum
+                ClaimTrxs selectedObject = (ClaimTrxs)View.CurrentObject;
+                if (!selectedObject.checkCompanyDoc())
+                {
+                    disableButton();
+                    this.View.BreakLinksToControls();
+                    throw new Exception ("Company Document Series not found.");
+                }
+                #endregion
+
                 ((DetailView)View).ViewEditModeChanged += ClaimTrxControllers_ViewEditModeChanged;
 
                 recordnaviator = Frame.GetController<RecordsNavigationController>();
@@ -101,10 +111,8 @@ namespace FT_EClaim.Module.Controllers
         {
             resetButton();
         }
-        private void resetButton()
+        private void disableButton()
         {
-            ClaimTrxs selectedObject = (ClaimTrxs)View.CurrentObject;
-
             this.CancelDoc.Active.SetItemValue("Enabled", false);
             this.PassDoc.Active.SetItemValue("Enabled", false);
             this.RejectDoc.Active.SetItemValue("Enabled", false);
@@ -118,6 +126,13 @@ namespace FT_EClaim.Module.Controllers
             this.ApproveSelected.Active.SetItemValue("Enabled", false);
             this.ApprovalApprove.Active.SetItemValue("Enabled", false);
             this.ApprovalReject.Active.SetItemValue("Enabled", false);
+
+        }
+        private void resetButton()
+        {
+            ClaimTrxs selectedObject = (ClaimTrxs)View.CurrentObject;
+
+            disableButton();
 
             if (View is ListView)
             {
@@ -476,12 +491,12 @@ namespace FT_EClaim.Module.Controllers
 
         private void PassDoc_Execute(object sender, PopupWindowShowActionExecuteEventArgs e)
         {
-            if (((DetailView)View).ViewEditMode == ViewEditMode.View)
-                ((DetailView)View).ViewEditMode = ViewEditMode.Edit;
-
             ClaimTrxs selectedObject = (ClaimTrxs)e.CurrentObject;
             StringParameters p = (StringParameters)e.PopupWindow.View.CurrentObject;
             if (p.IsErr) return;
+
+            if (((DetailView)View).ViewEditMode == ViewEditMode.View)
+                ((DetailView)View).ViewEditMode = ViewEditMode.Edit;
 
             ModificationsController controller = Frame.GetController<ModificationsController>();
 
@@ -545,7 +560,7 @@ namespace FT_EClaim.Module.Controllers
                 AcceptDoc_Execute(sender, e); // assignDocNum in AcceptDoc_Execute
             }
             else if (!selectedObject.Company.IsPassAccept)
-            {
+            {                
                 selectedObject.assignDocNum();
 
                 if (controller != null)
@@ -1234,12 +1249,12 @@ namespace FT_EClaim.Module.Controllers
         }
         private void AcceptDoc_Execute(object sender, PopupWindowShowActionExecuteEventArgs e)
         {
-            if (((DetailView)View).ViewEditMode == ViewEditMode.View)
-                ((DetailView)View).ViewEditMode = ViewEditMode.Edit;
-
             ClaimTrxs selectedObject = (ClaimTrxs)e.CurrentObject;
             StringParameters p = (StringParameters)e.PopupWindow.View.CurrentObject;
             if (p.IsErr) return;
+
+            if (((DetailView)View).ViewEditMode == ViewEditMode.View)
+                ((DetailView)View).ViewEditMode = ViewEditMode.Edit;
 
             selectedObject.IsAccepted = true;
             ClaimTrxDocStatuses ds = ObjectSpace.CreateObject<ClaimTrxDocStatuses>();

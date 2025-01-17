@@ -82,6 +82,7 @@ namespace FT_EClaim.Module.BusinessObjects
             IsHideProject = Company.IsHideProject;
 
             DocType = Session.FindObject<DocTypes>(new BinaryOperator("BoCode", GeneralSettings.defclaimdoc));
+
             Employee = Session.FindObject<Employees>(new BinaryOperator("SystemUser.Oid", SecuritySystem.CurrentUserId));
             if (Employee != null)
             {
@@ -1020,6 +1021,15 @@ namespace FT_EClaim.Module.BusinessObjects
             DocNum = DocNumSeq.ToString();
             doc.NextDocNo++;
 
+        }
+        public bool checkCompanyDoc()
+        {
+            CompanyDocs doc = Session.FindObject<CompanyDocs>(CriteriaOperator.Parse("Company.Oid=? and DocType.Oid=?", Company.Oid, DocType.Oid));
+            if (doc != null)
+            {
+                return true;
+            }
+            return false;
         }
         protected override void OnSaved()
         {
